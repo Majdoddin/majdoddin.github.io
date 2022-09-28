@@ -27,6 +27,29 @@
     </style>
   </head>
   <body>
-    <a href="index.html">back to index</a><h2>Yann LeCun: Dark Matter of Intelligence and Self-Supervised Learning | Lex Fridman Podcast #258</h2><a href="https://www.youtube.com/watch?v=SGzMElJ11Cc"><img src="https://i.ytimg.com/vi/SGzMElJ11Cc/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCrO7Z2P5CMntLcXEBp8x8vr6wyxw"></a><div><br><a href="0258-small.html">small model</a> | <a href="0258-large.html">large model</a><br><br></div>
+    <h2>Yann LeCun: Dark Matter of Intelligence and Self-Supervised Learning | Lex Fridman Podcast #258</h2>
+    
+    <div id="player"></div>
+    <input type="button" value="Seek0" onclick="setCurrentTime(0)" />
+    <input type="button" value="Seek1" onclick="setCurrentTime(1)" />
+    <script>
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '210',
+          width: '340',
+          videoId: 'SGzMElJ11Cc',
+        });
+      }
+      function setCurrentTime(slideNum) {
+        var object = [ 60, 120 ];
+        player.seekTo(object[slideNum]);
+      }
+    </script>
+    <a href="0258-large.html">large model</a><br><br></div>
   </body>
   </html>
