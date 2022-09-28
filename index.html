@@ -25,63 +25,21 @@
             display: inline-block;
         }
 
-@keyframes fade-in-up {
-	 0% {
-		 opacity: 0;
-	}
-	 100% {
-		 transform: translateY(0);
-		 opacity: 1;
-	}
-}
-
-.video iframe {
-	 max-width: 100%;
-	 max-height: 100%;
-}
-
-.video.stuck {
-	 position: fixed;
-	 bottom: 20px;
-	 right: 20px;
-	 width: 260px;
-	 height: 145px;
-	 transform: translateY(100%);
-	 animation: fade-in-up 0.75s ease forwards;
-	z-index: 1;
-}
-
+        #player {
+		position: sticky;
+		top = 20px;
+	}        
     </style>
-<script>
-(function($) {
-	var $window = $(window);
-	var $videoWrap = $('.video-wrap');
-	var $video = $('.video');
-	var videoHeight = $video.outerHeight();
 
-	$window.on('scroll',  function() {
-		var windowScrollTop = $window.scrollTop();
-		var videoBottom = videoHeight + $videoWrap.offset().top;
-		
-		if (windowScrollTop > videoBottom) {
-			$videoWrap.height(videoHeight);
-			$video.addClass('stuck');
-		} else {
-			$videoWrap.height('auto');
-			$video.removeClass('stuck');
-		}
-	});
-}(jQuery));
-</script>
   </head>
   <body>
     <h2>Yann LeCun: Dark Matter of Intelligence and Self-Supervised Learning | Lex Fridman Podcast #258</h2>
     
 
 
-<div class="video-wrap">
-  <div class="video" id="player"></div>
-</div>
+
+  <div  id="player"></div>
+
   
     <script>
       var tag = document.createElement('script');
