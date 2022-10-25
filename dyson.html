@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lexicap</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            font-size: 18px;
+            color: #111;
+            padding: 0 0 1em 0;
+	    background-color: #efe7dd;
+
+        }
+        table {
+             border-spacing: 10px;
+        }
+        th { text-align: left;}
+        .l {
+          color: #050;
+        }
+        .s {
+            display: inline-block;
+        }
+        .c {
+            display: inline-block;
+        }
+        .e1 {
+                background-color: white;/* Changing background color */
+            border-radius: 20px; /* Making border radius */
+            width: fit-content; /* Making auto-sizable width */
+            height: fit-content; /* Making auto-sizable height */
+            padding: 5px 30px 5px 30px; /* Making space around letters */
+            font-size: 18px; /* Changing font size */
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+            }
+        .e2 {
+                background-color: #e1ffc7;/* Changing background color */
+            border-radius: 20px; /* Making border radius */
+            width: fit-content; /* Making auto-sizable width */
+            height: fit-content; /* Making auto-sizable height */
+            padding: 5px 30px 5px 30px; /* Making space around letters */
+            font-size: 18px; /* Changing font size */
+            display: flex;
+            flex-direction: column;
+                margin-bottom: 10px;
+            }
+            .t {
+                display: inline-block;
+            }
+            #player {
+            position: sticky;
+            top: 20px;
+            float: right;
+        }
+    </style>
+	<script>
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          //height: '210',
+          //width: '340',
+          videoId: 'NSp2fEQ6wyA',
+        });
+      }
+      function setCurrentTime(timepoint) {
+        player.seekTo(timepoint);
+       player.playVideo();
+      }
+    </script>
+  </head>
+  <body>
+    <h2>Freeman Dyson - Pure mathematics at Cambridge: the influence of Besicovitch </h2>
+  <div  id="player"></div><div class="e1">
+Dyson<br>
+<div class="c">				<a class="l" href="#00:00:0.00" id="00:00:0.00">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(0)>00:00:0.00</a></div>
+				<div class="t"> So then I come to Cambridge in 1941 as a 17-year-old, and I'd always been interested in physics</div><br>
+</div><div class="c">				<a class="l" href="#00:00:10.94" id="00:00:10.94">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(10)>00:00:10.94</a></div>
+				<div class="t"> and applied mathematics of all sorts, and one of the textbooks that I bought as a prize</div><br>
+</div><div class="c">				<a class="l" href="#00:00:15.96" id="00:00:15.96">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(15)>00:00:15.96</a></div>
+				<div class="t"> was a textbook in aerodynamics, which I think was because of James Lighthill, and so I thought</div><br>
+</div><div class="c">				<a class="l" href="#00:00:24.38" id="00:00:24.38">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(24)>00:00:24.38</a></div>
+				<div class="t"> of myself as becoming an aerodynamicist as a serious possibility. That seemed to be a</div><br>
+</div><div class="c">				<a class="l" href="#00:00:30.72" id="00:00:30.72">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(30)>00:00:30.72</a></div>
+				<div class="t"> field where mathematics could really be helpful, and flying, of course, was exciting. But anyway,</div><br>
+</div><div class="c">				<a class="l" href="#00:00:37.46" id="00:00:37.46">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(37)>00:00:37.46</a></div>
+				<div class="t"> I arrived in Cambridge, and all the applied mathematicians were gone. There was nobody</div><br>
+</div><div class="c">				<a class="l" href="#00:00:42.40" id="00:00:42.40">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(42)>00:00:42.40</a></div>
+				<div class="t"> there except pure, and all the applied mathematicians and physicists were fighting the war, and</div><br>
+</div><div class="c">				<a class="l" href="#00:00:50.28" id="00:00:50.28">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(50)>00:00:50.28</a></div>
+				<div class="t"> they had gone to do radar or cryptoanalysis or various other things. So they had all disappeared,</div><br>
+</div><div class="c">				<a class="l" href="#00:01:0.84" id="00:01:0.84">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(60)>00:01:0.84</a></div>
+				<div class="t"> and all that was left was the pure mathematicians. So I just had a wonderful feast of pure mathematics</div><br>
+</div><div class="c">				<a class="l" href="#00:01:6.32" id="00:01:6.32">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(66)>00:01:6.32</a></div>
+				<div class="t"> for the two years that I was in Cambridge, and I had the great luck to have Bezikovich</div><br>
+</div><div class="c">				<a class="l" href="#00:01:12.76" id="00:01:12.76">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(72)>00:01:12.76</a></div>
+				<div class="t"> as my tutor, who was a great mathematician as well as being also a Russian, so I could</div><br>
+</div><div class="c">				<a class="l" href="#00:01:20.42" id="00:01:20.42">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(80)>00:01:20.42</a></div>
+				<div class="t"> talk Russian with him, and we became very close friends. With him, I actually did serious</div><br>
+</div><div class="c">				<a class="l" href="#00:01:29.12" id="00:01:29.12">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(89)>00:01:29.12</a></div>
+				<div class="t"> mathematics, and I got, again, deep into problems which I never solved but which gave me enormous</div><br>
+</div><div class="c">				<a class="l" href="#00:01:42.68" id="00:01:42.68">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(102)>00:01:42.68</a></div>
+				<div class="t"> satisfaction. I remember Bezikovich gave me problems which would have been too hard for</div><br>
+</div><div class="c">				<a class="l" href="#00:01:50.16" id="00:01:50.16">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(110)>00:01:50.16</a></div>
+				<div class="t"> a graduate student, but nevertheless, they taught me a tremendous lot.</div><br>
+</div></div>
+<div class="e2">
+Interviewer<br>
+<div class="c">				<a class="l" href="#00:01:56.27" id="00:01:56.27">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(116)>00:01:56.27</a></div>
+				<div class="t"> And he was primarily interested in measure theory and such problems?</div><br>
+</div></div>
+<div class="e1">
+Dyson<br>
+<div class="c">				<a class="l" href="#00:02:1.73" id="00:02:1.73">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(121)>00:02:1.73</a></div>
+				<div class="t"> Yes, he was also geometry, but it was metrical geometry rather than algebraic. But the kind</div><br>
+</div><div class="c">				<a class="l" href="#00:02:9.63" id="00:02:9.63">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(129)>00:02:9.63</a></div>
+				<div class="t"> of problem he gave to me was to understand the properties of measurable sets in fractional</div><br>
+</div><div class="c">				<a class="l" href="#00:02:18.85" id="00:02:18.85">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(138)>00:02:18.85</a></div>
+				<div class="t"> dimensions. It's hard enough in one dimension or two, but when you come to fractional dimensions</div><br>
+</div><div class="c">				<a class="l" href="#00:02:27.51" id="00:02:27.51">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(147)>00:02:27.51</a></div>
+				<div class="t"> it gets worse. So I had a great time struggling with that, but of course nothing much came</div><br>
+</div><div class="c">				<a class="l" href="#00:02:34.38" id="00:02:34.38">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(154)>00:02:34.38</a></div>
+				<div class="t"> out of it except just a taste for his style. And Besicovitch's style has stayed with me</div><br>
+</div><div class="c">				<a class="l" href="#00:02:41.16" id="00:02:41.16">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(161)>00:02:41.16</a></div>
+				<div class="t"> all my life. It's the way I do science in all fields. It's a very distinctive style,</div><br>
+</div><div class="c">				<a class="l" href="#00:02:51.78" id="00:02:51.78">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(171)>00:02:51.78</a></div>
+				<div class="t"> which is kind of an architectural style in which you take very simple components and</div><br>
+</div><div class="c">				<a class="l" href="#00:02:59.38" id="00:02:59.38">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(179)>00:02:59.38</a></div>
+				<div class="t"> then build hierarchical structures which become, stage by stage, bigger and fewer as you build</div><br>
+</div><div class="c">				<a class="l" href="#00:03:12.77" id="00:03:12.77">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(192)>00:03:12.77</a></div>
+				<div class="t"> one story on another until finally you get the keystone at the top. So you have this</div><br>
+</div><div class="c">				<a class="l" href="#00:03:17.85" id="00:03:17.85">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(197)>00:03:17.85</a></div>
+				<div class="t"> hierarchical structure which played a big part in all Besicovitch's work. So out of these</div><br>
+</div><div class="c">				<a class="l" href="#00:03:24.69" id="00:03:24.69">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(204)>00:03:24.69</a></div>
+				<div class="t"> simple components you get this very powerful structure and then the theorem you want to</div><br>
+</div><div class="c">				<a class="l" href="#00:03:30.25" id="00:03:30.25">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(210)>00:03:30.25</a></div>
+				<div class="t"> prove falls out as a consequence of the overall structure. So it's a kind of architectural</div><br>
+</div><div class="c">				<a class="l" href="#00:03:35.74" id="00:03:35.74">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(215)>00:03:35.74</a></div>
+				<div class="t"> style of reasoning which is very powerful and I used that in quantum electrodynamics.</div><br>
+</div></div>
+<div class="e2">
+Interviewer<br>
+<div class="c">				<a class="l" href="#00:03:42.65" id="00:03:42.65">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(222)>00:03:42.65</a></div>
+				<div class="t"> And you were conscious of that at the time in interacting with Besicovitch, that this</div><br>
+</div><div class="c">				<a class="l" href="#00:03:47.91" id="00:03:47.91">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(227)>00:03:47.91</a></div>
+				<div class="t"> is an approach of how he does mathematics.</div><br>
+</div></div>
+<div class="e1">
+Dyson<br>
+<div class="c">				<a class="l" href="#00:03:50.71" id="00:03:50.71">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(230)>00:03:50.71</a></div>
+				<div class="t"> I'm not sure whether I was conscious of it, but certainly I absorbed it, and it's very</div><br>
+</div><div class="c">				<a class="l" href="#00:03:55.53" id="00:03:55.53">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(235)>00:03:55.53</a></div>
+				<div class="t"> visible in everything that I do.</div><br>
+</div></div>
+<div class="e2">
+Interviewer<br>
+<div class="c">				<a class="l" href="#00:03:54.28" id="00:03:54.28">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(234)>00:03:54.28</a></div>
+				<div class="t"> Mm-hmm.</div><br>
+</div></div>
+<div class="e2">
+Interviewer<br>
+<div class="c">				<a class="l" href="#00:03:54.81" id="00:03:54.81">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(234)>00:03:54.81</a></div>
+				<div class="t"> Mm-hmm.</div><br>
+</div></div>
+<div class="e2">
+Interviewer<br>
+<div class="c">				<a class="l" href="#00:03:59.93" id="00:03:59.93">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(239)>00:03:59.93</a></div>
+				<div class="t"> And so Besicovitch is an important resource for you.</div><br>
+</div></div>
+<div class="e1">
+Dyson<br>
+<div class="c">				<a class="l" href="#00:04:6.53" id="00:04:6.53">#</a> 
+				<div class="s"><a href="javascript:void(0);" onclick=setCurrentTime(246)>00:04:6.53</a></div>
+				<div class="t"> Yes, I mean certainly the tools that I use are basically Besicovich tools.</div><br>
+</div></div>
+	</body>
+</html>
