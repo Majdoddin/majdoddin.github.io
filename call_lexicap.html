@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Sample Order Taking | Customer Support Philippines</title>
+	<style>
+		body {
+			font-family: sans-serif;
+			font-size: 14px;
+			color: #111;
+			padding: 0 0 1em 0;
+			background-color: #efe7dd;
+		}
+
+		table {
+			border-spacing: 10px;
+		}
+
+		th {
+			text-align: left;
+		}
+
+		.lt {
+			color: inherit;
+			text-decoration: inherit;
+		}
+
+		.l {
+			color: #050;
+		}
+
+		.s {
+			display: inline-block;
+		}
+
+		.c {
+			display: inline-block;
+		}
+
+		.e {
+			/*background-color: white; Changing background color */
+			border-radius: 10px;
+			/* Making border radius */
+			width: 50%;
+			/* Making auto-sizable width */
+			padding: 0 0 0 0;
+			/* Making space around letters */
+			font-size: 14px;
+			/* Changing font size */
+			margin-bottom: 0;
+		}
+
+		.t {
+			display: inline-block;
+		}
+
+		#player-div {
+			position: sticky;
+			top: 20px;
+			float: right;
+			width: 40%
+		}
+
+		#player {
+			aspect-ratio: 16 / 9;
+			width: 100%;
+			height: auto;
+
+		}
+
+		a {
+			display: inline;
+		}
+	</style>
+	<script>
+		var tag = document.createElement('script');
+		tag.src = "https://www.youtube.com/iframe_api";
+		var firstScriptTag = document.getElementsByTagName('script')[0];
+		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+		var player;
+		var previouslyBolded = [];
+		var lastTimeUpdate = "-1";
+	
+		function onYouTubeIframeAPIReady() {
+			player = new YT.Player('player', {
+				videoId: 'hpZFJctBUHQ',
+			});
+	
+			var iframeWindow = player.getIframe().contentWindow;
+	
+			window.addEventListener("message", function (event) {
+				if (event.source === iframeWindow) {
+					var data = JSON.parse(event.data);
+	
+					if (
+						data.event === "infoDelivery" &&
+						data.info &&
+						data.info.currentTime
+					) {
+						var currentTime = data.info.currentTime;
+						var roundedTime = Math.round(currentTime * 10) / 10;
+						var ts = roundedTime.toFixed(1).toString();
+						console.log(ts)
+						if (ts !== lastTimeUpdate) {
+							clearPreviouslyBolded();
+							boldValidElements(currentTime, parseFloat(lastTimeUpdate));
+							lastTimeUpdate = ts;
+	
+							let toggle = document.getElementById("autoscroll");
+							if (toggle.checked && previouslyBolded.length > 0) {
+								let position = previouslyBolded[previouslyBolded.length - 1].offsetTop - 20;
+								window.scrollTo({
+									top: position,
+									behavior: 'smooth'
+								});
+							}
+						}
+					}
+				}
+			})
+		}
+	
+		function clearPreviouslyBolded() {
+			while (previouslyBolded.length) {
+				var elem = previouslyBolded.pop();
+				elem.style.fontWeight = 'normal';
+			}
+		}
+	
+		function boldValidElements(currentTime, lastTime) {
+			for (let i = lastTime + 0.1; i <= currentTime + 0.05; i += 0.1) {
+				var elem = document.getElementById(i.toFixed(1));
+				if (elem) {
+					elem.style.fontWeight = 'bold';
+					previouslyBolded.push(elem);
+				}
+			}
+		}
+	
+		function jumptoTime(timepoint, id) {
+			event.preventDefault();
+			history.pushState(null, null, "#" + id);
+			player.seekTo(timepoint);
+			player.playVideo();
+		}
+	</script>
+</head>
+
+<body>
+	<h2>Sample Order Taking | Customer Support Philippines</h2>
+	<i>Click on a part of the transcription, to jump to its video, and get an anchor to it in the address
+		bar<br><br></i>
+	<div id="player-div">
+		<div id="player"></div>
+		<div><label for="autoscroll">auto-scroll: </label>
+			<input type="checkbox" id="autoscroll" checked>
+		</div>
+	</div>
+  <div class="e" style="background-color: white">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkorange;font-weight: bold;">Call Center</span><br>
+				<a href="#00:00:000.50" id="0.5" class="lt" onclick="jumptoTime(0, this.id)"> Thank</a><!--
+				--><a href="#00:00:000.90" id="0.9" class="lt" onclick="jumptoTime(0, this.id)"> you</a><!--
+				--><a href="#00:00:001.02" id="1.0" class="lt" onclick="jumptoTime(1, this.id)"> for</a><!--
+				--><a href="#00:00:001.14" id="1.1" class="lt" onclick="jumptoTime(1, this.id)"> calling</a><!--
+				--><a href="#00:00:001.40" id="1.4" class="lt" onclick="jumptoTime(1, this.id)"> Martha's</a><!--
+				--><a href="#00:00:002.02" id="2.0" class="lt" onclick="jumptoTime(2, this.id)"> Flowers.</a><!--
+				--><a href="#00:00:002.52" id="2.5" class="lt" onclick="jumptoTime(2, this.id)"> Tell</a><!--
+				--><a href="#00:00:002.64" id="2.6" class="lt" onclick="jumptoTime(2, this.id)"> me</a><!--
+				--><a href="#00:00:002.80" id="2.8" class="lt" onclick="jumptoTime(2, this.id)"> I</a><!--
+				--><a href="#00:00:002.92" id="2.9" class="lt" onclick="jumptoTime(2, this.id)"> assist</a><!--
+				--><a href="#00:00:003.10" id="3.1" class="lt" onclick="jumptoTime(3, this.id)"> you.</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: #e1ffc7">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkgreen;font-weight: bold;">Customer</span><br>
+				<a href="#00:00:003.82" id="3.8" class="lt" onclick="jumptoTime(3, this.id)"> Hello,</a><!--
+				--><a href="#00:00:004.02" id="4.0" class="lt" onclick="jumptoTime(4, this.id)"> I'd</a><!--
+				--><a href="#00:00:004.26" id="4.3" class="lt" onclick="jumptoTime(4, this.id)"> like</a><!--
+				--><a href="#00:00:004.40" id="4.4" class="lt" onclick="jumptoTime(4, this.id)"> to</a><!--
+				--><a href="#00:00:004.62" id="4.6" class="lt" onclick="jumptoTime(4, this.id)"> order</a><!--
+				--><a href="#00:00:004.88" id="4.9" class="lt" onclick="jumptoTime(4, this.id)"> flowers</a><!--
+				--><a href="#00:00:005.42" id="5.4" class="lt" onclick="jumptoTime(5, this.id)"> and</a><!--
+				--><a href="#00:00:005.72" id="5.7" class="lt" onclick="jumptoTime(5, this.id)"> I</a><!--
+				--><a href="#00:00:005.86" id="5.9" class="lt" onclick="jumptoTime(5, this.id)"> think</a><!--
+				--><a href="#00:00:006.06" id="6.1" class="lt" onclick="jumptoTime(6, this.id)"> you</a><!--
+				--><a href="#00:00:006.24" id="6.2" class="lt" onclick="jumptoTime(6, this.id)"> have</a><!--
+				--><a href="#00:00:006.40" id="6.4" class="lt" onclick="jumptoTime(6, this.id)"> what</a><!--
+				--><a href="#00:00:006.56" id="6.6" class="lt" onclick="jumptoTime(6, this.id)"> I'm</a><!--
+				--><a href="#00:00:006.76" id="6.8" class="lt" onclick="jumptoTime(6, this.id)"> looking</a><!--
+				--><a href="#00:00:006.92" id="6.9" class="lt" onclick="jumptoTime(6, this.id)"> for.</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: white">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkorange;font-weight: bold;">Call Center</span><br>
+				<a href="#00:00:007.80" id="7.8" class="lt" onclick="jumptoTime(7, this.id)"> I'd</a><!--
+				--><a href="#00:00:008.00" id="8.0" class="lt" onclick="jumptoTime(8, this.id)"> be</a><!--
+				--><a href="#00:00:008.14" id="8.1" class="lt" onclick="jumptoTime(8, this.id)"> happy</a><!--
+				--><a href="#00:00:008.26" id="8.3" class="lt" onclick="jumptoTime(8, this.id)"> to</a><!--
+				--><a href="#00:00:008.48" id="8.5" class="lt" onclick="jumptoTime(8, this.id)"> take</a><!--
+				--><a href="#00:00:008.66" id="8.7" class="lt" onclick="jumptoTime(8, this.id)"> care</a><!--
+				--><a href="#00:00:008.80" id="8.8" class="lt" onclick="jumptoTime(8, this.id)"> of</a><!--
+				--><a href="#00:00:008.94" id="8.9" class="lt" onclick="jumptoTime(8, this.id)"> your</a><!--
+				--><a href="#00:00:009.08" id="9.1" class="lt" onclick="jumptoTime(9, this.id)"> order.</a><!--
+				--><a href="#00:00:009.48" id="9.5" class="lt" onclick="jumptoTime(9, this.id)"> May</a><!--
+				--><a href="#00:00:009.52" id="9.5" class="lt" onclick="jumptoTime(9, this.id)"> I</a><!--
+				--><a href="#00:00:009.66" id="9.7" class="lt" onclick="jumptoTime(9, this.id)"> have</a><!--
+				--><a href="#00:00:009.76" id="9.8" class="lt" onclick="jumptoTime(9, this.id)"> your</a><!--
+				--><a href="#00:00:009.96" id="10.0" class="lt" onclick="jumptoTime(9, this.id)"> name</a><!--
+				--><a href="#00:00:010.14" id="10.1" class="lt" onclick="jumptoTime(10, this.id)"> please?</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: #e1ffc7">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkgreen;font-weight: bold;">Customer</span><br>
+				<a href="#00:00:011.34" id="11.3" class="lt" onclick="jumptoTime(11, this.id)"> Randall</a><!--
+				--><a href="#00:00:011.48" id="11.5" class="lt" onclick="jumptoTime(11, this.id)"> Thomas.</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: white">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkorange;font-weight: bold;">Call Center</span><br>
+				<a href="#00:00:012.62" id="12.6" class="lt" onclick="jumptoTime(12, this.id)"> Randall</a><!--
+				--><a href="#00:00:013.02" id="13.0" class="lt" onclick="jumptoTime(13, this.id)"> Thomas.</a><!--
+				--><a href="#00:00:013.74" id="13.7" class="lt" onclick="jumptoTime(13, this.id)"> Can</a><!--
+				--><a href="#00:00:013.88" id="13.9" class="lt" onclick="jumptoTime(13, this.id)"> you</a><!--
+				--><a href="#00:00:013.98" id="14.0" class="lt" onclick="jumptoTime(13, this.id)"> spell</a><!--
+				--><a href="#00:00:014.30" id="14.3" class="lt" onclick="jumptoTime(14, this.id)"> that</a><!--
+				--><a href="#00:00:014.52" id="14.5" class="lt" onclick="jumptoTime(14, this.id)"> for</a><!--
+				--><a href="#00:00:014.74" id="14.7" class="lt" onclick="jumptoTime(14, this.id)"> me?</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: #e1ffc7">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkgreen;font-weight: bold;">Customer</span><br>
+				<a href="#00:00:015.82" id="15.8" class="lt" onclick="jumptoTime(15, this.id)"> Randall.</a><!--
+				--><a href="#00:00:016.44" id="16.4" class="lt" onclick="jumptoTime(16, this.id)"> R</a><!--
+				--><a href="#00:00:016.76" id="16.8" class="lt" onclick="jumptoTime(16, this.id)">-A</a><!--
+				--><a href="#00:00:017.04" id="17.0" class="lt" onclick="jumptoTime(17, this.id)">-N</a><!--
+				--><a href="#00:00:017.46" id="17.5" class="lt" onclick="jumptoTime(17, this.id)">-D</a><!--
+				--><a href="#00:00:017.94" id="17.9" class="lt" onclick="jumptoTime(17, this.id)">-A</a><!--
+				--><a href="#00:00:018.18" id="18.2" class="lt" onclick="jumptoTime(18, this.id)">-L</a><!--
+				--><a href="#00:00:018.46" id="18.5" class="lt" onclick="jumptoTime(18, this.id)">-L.</a><!--
+				--><a href="#00:00:019.58" id="19.6" class="lt" onclick="jumptoTime(19, this.id)"> Thomas.</a><!--
+				--><a href="#00:00:020.44" id="20.4" class="lt" onclick="jumptoTime(20, this.id)"> D</a><!--
+				--><a href="#00:00:020.84" id="20.8" class="lt" onclick="jumptoTime(20, this.id)">-H</a><!--
+				--><a href="#00:00:021.06" id="21.1" class="lt" onclick="jumptoTime(21, this.id)">-O</a><!--
+				--><a href="#00:00:021.40" id="21.4" class="lt" onclick="jumptoTime(21, this.id)">-M</a><!--
+				--><a href="#00:00:021.78" id="21.8" class="lt" onclick="jumptoTime(21, this.id)">-A</a><!--
+				--><a href="#00:00:021.88" id="21.9" class="lt" onclick="jumptoTime(21, this.id)">-N.</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: white">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkorange;font-weight: bold;">Call Center</span><br>
+				<a href="#00:00:022.76" id="22.8" class="lt" onclick="jumptoTime(22, this.id)"> Thank</a><!--
+				--><a href="#00:00:022.94" id="22.9" class="lt" onclick="jumptoTime(22, this.id)"> you</a><!--
+				--><a href="#00:00:023.04" id="23.0" class="lt" onclick="jumptoTime(23, this.id)"> for</a><!--
+				--><a href="#00:00:023.16" id="23.2" class="lt" onclick="jumptoTime(23, this.id)"> that</a><!--
+				--><a href="#00:00:023.36" id="23.4" class="lt" onclick="jumptoTime(23, this.id)"> information,</a><!--
+				--><a href="#00:00:024.08" id="24.1" class="lt" onclick="jumptoTime(24, this.id)"> Randall.</a><!--
+				--><a href="#00:00:024.38" id="24.4" class="lt" onclick="jumptoTime(24, this.id)"> May</a><!--
+				--><a href="#00:00:024.50" id="24.5" class="lt" onclick="jumptoTime(24, this.id)"> I</a><!--
+				--><a href="#00:00:024.64" id="24.6" class="lt" onclick="jumptoTime(24, this.id)"> have</a><!--
+				--><a href="#00:00:024.78" id="24.8" class="lt" onclick="jumptoTime(24, this.id)"> your</a><!--
+				--><a href="#00:00:024.96" id="25.0" class="lt" onclick="jumptoTime(24, this.id)"> home</a><!--
+				--><a href="#00:00:025.16" id="25.2" class="lt" onclick="jumptoTime(25, this.id)"> or</a><!--
+				--><a href="#00:00:025.36" id="25.4" class="lt" onclick="jumptoTime(25, this.id)"> office</a><!--
+				--><a href="#00:00:025.70" id="25.7" class="lt" onclick="jumptoTime(25, this.id)"> number</a><!--
+				--><a href="#00:00:026.06" id="26.1" class="lt" onclick="jumptoTime(26, this.id)"> area</a><!--
+				--><a href="#00:00:026.40" id="26.4" class="lt" onclick="jumptoTime(26, this.id)"> code</a><!--
+				--><a href="#00:00:026.66" id="26.7" class="lt" onclick="jumptoTime(26, this.id)"> first?</a><!--
+				--><a href="#00:00:027.10" id="27.1" class="lt" onclick="jumptoTime(27, this.id)"> Air</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: #e1ffc7">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkgreen;font-weight: bold;">Customer</span><br>
+				<a href="#00:00:027.58" id="27.6" class="lt" onclick="jumptoTime(27, this.id)"> code</a><!--
+				--><a href="#00:00:027.86" id="27.9" class="lt" onclick="jumptoTime(27, this.id)"> 409,</a><!--
+				--><a href="#00:00:028.98" id="29.0" class="lt" onclick="jumptoTime(28, this.id)"> then</a><!--
+				--><a href="#00:00:029.74" id="29.7" class="lt" onclick="jumptoTime(29, this.id)"> 866</a><!--
+				--><a href="#00:00:031.62" id="31.6" class="lt" onclick="jumptoTime(31, this.id)">-5088.</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: white">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkorange;font-weight: bold;">Call Center</span><br>
+				<a href="#00:00:034.52" id="34.5" class="lt" onclick="jumptoTime(34, this.id)"> That's</a><!--
+				--><a href="#00:00:034.64" id="34.6" class="lt" onclick="jumptoTime(34, this.id)"> 409</a><!--
+				--><a href="#00:00:035.52" id="35.5" class="lt" onclick="jumptoTime(35, this.id)">-866</a><!--
+				--><a href="#00:00:036.54" id="36.5" class="lt" onclick="jumptoTime(36, this.id)">-5088.</a><!--
+				--><a href="#00:00:038.38" id="38.4" class="lt" onclick="jumptoTime(38, this.id)"> Do</a><!--
+				--><a href="#00:00:038.46" id="38.5" class="lt" onclick="jumptoTime(38, this.id)"> you</a><!--
+				--><a href="#00:00:038.56" id="38.6" class="lt" onclick="jumptoTime(38, this.id)"> have</a><!--
+				--><a href="#00:00:038.72" id="38.7" class="lt" onclick="jumptoTime(38, this.id)"> a</a><!--
+				--><a href="#00:00:038.86" id="38.9" class="lt" onclick="jumptoTime(38, this.id)"> fax</a><!--
+				--><a href="#00:00:039.14" id="39.1" class="lt" onclick="jumptoTime(39, this.id)"> number</a><!--
+				--><a href="#00:00:039.50" id="39.5" class="lt" onclick="jumptoTime(39, this.id)"> or</a><!--
+				--><a href="#00:00:039.80" id="39.8" class="lt" onclick="jumptoTime(39, this.id)"> email</a><!--
+				--><a href="#00:00:040.06" id="40.1" class="lt" onclick="jumptoTime(40, this.id)"> address?</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: #e1ffc7">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkgreen;font-weight: bold;">Customer</span><br>
+				<a href="#00:00:041.36" id="41.4" class="lt" onclick="jumptoTime(41, this.id)"> My</a><!--
+				--><a href="#00:00:041.44" id="41.4" class="lt" onclick="jumptoTime(41, this.id)"> email</a><!--
+				--><a href="#00:00:041.68" id="41.7" class="lt" onclick="jumptoTime(41, this.id)"> is</a><!--
+				--><a href="#00:00:042.02" id="42.0" class="lt" onclick="jumptoTime(42, this.id)"> randal</a><!--
+				--><a href="#00:00:042.48" id="42.5" class="lt" onclick="jumptoTime(42, this.id)">.thomas</a><!--
+				--><a href="#00:00:043.96" id="44.0" class="lt" onclick="jumptoTime(43, this.id)"> at</a><!--
+				--><a href="#00:00:044.98" id="45.0" class="lt" onclick="jumptoTime(44, this.id)"> gmail</a><!--
+				--><a href="#00:00:045.50" id="45.5" class="lt" onclick="jumptoTime(45, this.id)">.com.</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: white">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkorange;font-weight: bold;">Call Center</span><br>
+				<a href="#00:00:047.06" id="47.1" class="lt" onclick="jumptoTime(47, this.id)"> Randall</a><!--
+				--><a href="#00:00:047.40" id="47.4" class="lt" onclick="jumptoTime(47, this.id)">.thomas</a><!--
+				--><a href="#00:00:048.48" id="48.5" class="lt" onclick="jumptoTime(48, this.id)"> at</a><!--
+				--><a href="#00:00:048.82" id="48.8" class="lt" onclick="jumptoTime(48, this.id)"> gmail</a><!--
+				--><a href="#00:00:049.30" id="49.3" class="lt" onclick="jumptoTime(49, this.id)">.com.</a><!--
+				--><a href="#00:00:050.22" id="50.2" class="lt" onclick="jumptoTime(50, this.id)"> May</a><!--
+				--><a href="#00:00:050.26" id="50.3" class="lt" onclick="jumptoTime(50, this.id)"> I</a><!--
+				--><a href="#00:00:050.44" id="50.4" class="lt" onclick="jumptoTime(50, this.id)"> have</a><!--
+				--><a href="#00:00:050.54" id="50.5" class="lt" onclick="jumptoTime(50, this.id)"> your</a><!--
+				--><a href="#00:00:050.72" id="50.7" class="lt" onclick="jumptoTime(50, this.id)"> shipping</a><!--
+				--><a href="#00:00:051.06" id="51.1" class="lt" onclick="jumptoTime(51, this.id)"> address?</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: #e1ffc7">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkgreen;font-weight: bold;">Customer</span><br>
+				<a href="#00:00:052.02" id="52.0" class="lt" onclick="jumptoTime(52, this.id)"> 6800</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: white">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkorange;font-weight: bold;">Call Center</span><br>
+				<a href="#00:00:052.82" id="52.8" class="lt" onclick="jumptoTime(52, this.id)"> Faddis</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: #e1ffc7">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkgreen;font-weight: bold;">Customer</span><br>
+				<a href="#00:00:054.78" id="54.8" class="lt" onclick="jumptoTime(54, this.id)"> Avenue.</a><!--
+				--><a href="#00:00:056.14" id="56.1" class="lt" onclick="jumptoTime(56, this.id)"> Beaumont,</a><!--
+				--><a href="#00:00:056.78" id="56.8" class="lt" onclick="jumptoTime(56, this.id)"> Texas.</a><!--
+				--><a href="#00:00:057.98" id="58.0" class="lt" onclick="jumptoTime(57, this.id)"> Zip</a><!--
+				--><a href="#00:00:058.38" id="58.4" class="lt" onclick="jumptoTime(58, this.id)"> code</a><!--
+				--><a href="#00:00:058.72" id="58.7" class="lt" onclick="jumptoTime(58, this.id)"> 77706.</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: white">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkorange;font-weight: bold;">Call Center</span><br>
+				<a href="#00:01:001.82" id="61.8" class="lt" onclick="jumptoTime(61, this.id)"> Gladys</a><!--
+				--><a href="#00:01:002.08" id="62.1" class="lt" onclick="jumptoTime(62, this.id)"> Avenue,</a><!--
+				--><a href="#00:01:002.68" id="62.7" class="lt" onclick="jumptoTime(62, this.id)"> Beaumont,</a><!--
+				--><a href="#00:01:003.42" id="63.4" class="lt" onclick="jumptoTime(63, this.id)"> Texas.</a><!--
+				--><a href="#00:01:003.88" id="63.9" class="lt" onclick="jumptoTime(63, this.id)"> Zip</a><!--
+				--><a href="#00:01:004.22" id="64.2" class="lt" onclick="jumptoTime(64, this.id)"> code</a><!--
+				--><a href="#00:01:004.48" id="64.5" class="lt" onclick="jumptoTime(64, this.id)"> 77706.</a><!--
+				--><a href="#00:01:006.96" id="67.0" class="lt" onclick="jumptoTime(66, this.id)"> Thank</a><!--
+				--><a href="#00:01:007.06" id="67.1" class="lt" onclick="jumptoTime(67, this.id)"> you</a><!--
+				--><a href="#00:01:007.18" id="67.2" class="lt" onclick="jumptoTime(67, this.id)"> for</a><!--
+				--><a href="#00:01:007.30" id="67.3" class="lt" onclick="jumptoTime(67, this.id)"> the</a><!--
+				--><a href="#00:01:007.46" id="67.5" class="lt" onclick="jumptoTime(67, this.id)"> information.</a><!--
+				--><a href="#00:01:008.50" id="68.5" class="lt" onclick="jumptoTime(68, this.id)"> What</a><!--
+				--><a href="#00:01:008.64" id="68.6" class="lt" onclick="jumptoTime(68, this.id)"> products</a><!--
+				--><a href="#00:01:009.00" id="69.0" class="lt" onclick="jumptoTime(69, this.id)"> were</a><!--
+				--><a href="#00:01:009.20" id="69.2" class="lt" onclick="jumptoTime(69, this.id)"> you</a><!--
+				--><a href="#00:01:009.30" id="69.3" class="lt" onclick="jumptoTime(69, this.id)"> interested</a><!--
+				--><a href="#00:01:009.66" id="69.7" class="lt" onclick="jumptoTime(69, this.id)"> in</a><!--
+				--><a href="#00:01:009.92" id="69.9" class="lt" onclick="jumptoTime(69, this.id)"> purchasing?</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: #e1ffc7">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkgreen;font-weight: bold;">Customer</span><br>
+				<a href="#00:01:011.22" id="71.2" class="lt" onclick="jumptoTime(71, this.id)"> Red</a><!--
+				--><a href="#00:01:011.50" id="71.5" class="lt" onclick="jumptoTime(71, this.id)"> roses.</a><!--
+				--><a href="#00:01:012.16" id="72.2" class="lt" onclick="jumptoTime(72, this.id)"> Probably</a><!--
+				--><a href="#00:01:012.42" id="72.4" class="lt" onclick="jumptoTime(72, this.id)"> a</a><!--
+				--><a href="#00:01:012.64" id="72.6" class="lt" onclick="jumptoTime(72, this.id)"> dozen.</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: white">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkorange;font-weight: bold;">Call Center</span><br>
+				<a href="#00:01:014.04" id="74.0" class="lt" onclick="jumptoTime(74, this.id)"> One</a><!--
+				--><a href="#00:01:014.22" id="74.2" class="lt" onclick="jumptoTime(74, this.id)"> dozen</a><!--
+				--><a href="#00:01:014.52" id="74.5" class="lt" onclick="jumptoTime(74, this.id)"> of</a><!--
+				--><a href="#00:01:014.76" id="74.8" class="lt" onclick="jumptoTime(74, this.id)"> red</a><!--
+				--><a href="#00:01:014.94" id="74.9" class="lt" onclick="jumptoTime(74, this.id)"> roses?</a><!--
+				--><a href="#00:01:015.44" id="75.4" class="lt" onclick="jumptoTime(75, this.id)"> Do</a><!--
+				--><a href="#00:01:015.54" id="75.5" class="lt" onclick="jumptoTime(75, this.id)"> you</a><!--
+				--><a href="#00:01:015.66" id="75.7" class="lt" onclick="jumptoTime(75, this.id)"> want</a><!--
+				--><a href="#00:01:015.84" id="75.8" class="lt" onclick="jumptoTime(75, this.id)"> long</a><!--
+				--><a href="#00:01:016.14" id="76.1" class="lt" onclick="jumptoTime(76, this.id)"> stems?</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: #e1ffc7">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkgreen;font-weight: bold;">Customer</span><br>
+				<a href="#00:01:016.76" id="76.8" class="lt" onclick="jumptoTime(76, this.id)"> Sure.</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: white">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkorange;font-weight: bold;">Call Center</span><br>
+				<a href="#00:01:017.74" id="77.7" class="lt" onclick="jumptoTime(77, this.id)"> Alright,</a><!--
+				--><a href="#00:01:018.40" id="78.4" class="lt" onclick="jumptoTime(78, this.id)"> Randall.</a><!--
+				--><a href="#00:01:019.02" id="79.0" class="lt" onclick="jumptoTime(79, this.id)"> Let</a><!--
+				--><a href="#00:01:019.16" id="79.2" class="lt" onclick="jumptoTime(79, this.id)"> me</a><!--
+				--><a href="#00:01:019.30" id="79.3" class="lt" onclick="jumptoTime(79, this.id)"> process</a><!--
+				--><a href="#00:01:019.60" id="79.6" class="lt" onclick="jumptoTime(79, this.id)"> your</a><!--
+				--><a href="#00:01:019.82" id="79.8" class="lt" onclick="jumptoTime(79, this.id)"> order.</a><!--
+				--><a href="#00:01:020.20" id="80.2" class="lt" onclick="jumptoTime(80, this.id)"> One</a><!--
+				--><a href="#00:01:020.32" id="80.3" class="lt" onclick="jumptoTime(80, this.id)"> moment</a><!--
+				--><a href="#00:01:020.60" id="80.6" class="lt" onclick="jumptoTime(80, this.id)"> please.</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: #e1ffc7">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkgreen;font-weight: bold;">Customer</span><br>
+				<a href="#00:01:022.30" id="82.3" class="lt" onclick="jumptoTime(82, this.id)"> Okay.</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: white">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkorange;font-weight: bold;">Call Center</span><br>
+				<a href="#00:01:024.90" id="84.9" class="lt" onclick="jumptoTime(84, this.id)"> Randall,</a><!--
+				--><a href="#00:01:025.54" id="85.5" class="lt" onclick="jumptoTime(85, this.id)"> you're</a><!--
+				--><a href="#00:01:025.78" id="85.8" class="lt" onclick="jumptoTime(85, this.id)"> ordering</a><!--
+				--><a href="#00:01:026.16" id="86.2" class="lt" onclick="jumptoTime(86, this.id)"> one</a><!--
+				--><a href="#00:01:026.48" id="86.5" class="lt" onclick="jumptoTime(86, this.id)"> dozen</a><!--
+				--><a href="#00:01:026.90" id="86.9" class="lt" onclick="jumptoTime(86, this.id)"> long</a><!--
+				--><a href="#00:01:027.30" id="87.3" class="lt" onclick="jumptoTime(87, this.id)">-stemmed</a><!--
+				--><a href="#00:01:027.78" id="87.8" class="lt" onclick="jumptoTime(87, this.id)"> red</a><!--
+				--><a href="#00:01:028.00" id="88.0" class="lt" onclick="jumptoTime(88, this.id)"> roses.</a><!--
+				--><a href="#00:01:028.64" id="88.6" class="lt" onclick="jumptoTime(88, this.id)"> The</a><!--
+				--><a href="#00:01:028.70" id="88.7" class="lt" onclick="jumptoTime(88, this.id)"> total</a><!--
+				--><a href="#00:01:028.94" id="88.9" class="lt" onclick="jumptoTime(88, this.id)"> amount</a><!--
+				--><a href="#00:01:029.18" id="89.2" class="lt" onclick="jumptoTime(89, this.id)"> of</a><!--
+				--><a href="#00:01:029.32" id="89.3" class="lt" onclick="jumptoTime(89, this.id)"> your</a><!--
+				--><a href="#00:01:029.46" id="89.5" class="lt" onclick="jumptoTime(89, this.id)"> order</a><!--
+				--><a href="#00:01:029.66" id="89.7" class="lt" onclick="jumptoTime(89, this.id)"> is</a><!--
+				--><a href="#00:01:029.92" id="89.9" class="lt" onclick="jumptoTime(89, this.id)"> $40.</a><!--
+				--><a href="#00:01:030.82" id="90.8" class="lt" onclick="jumptoTime(90, this.id)"> And</a><!--
+				--><a href="#00:01:031.16" id="91.2" class="lt" onclick="jumptoTime(91, this.id)"> it</a><!--
+				--><a href="#00:01:031.28" id="91.3" class="lt" onclick="jumptoTime(91, this.id)"> will</a><!--
+				--><a href="#00:01:031.42" id="91.4" class="lt" onclick="jumptoTime(91, this.id)"> be</a><!--
+				--><a href="#00:01:031.60" id="91.6" class="lt" onclick="jumptoTime(91, this.id)"> shipped</a><!--
+				--><a href="#00:01:031.86" id="91.9" class="lt" onclick="jumptoTime(91, this.id)"> to</a><!--
+				--><a href="#00:01:032.14" id="92.1" class="lt" onclick="jumptoTime(92, this.id)"> your</a><!--
+				--><a href="#00:01:032.28" id="92.3" class="lt" onclick="jumptoTime(92, this.id)"> address</a><!--
+				--><a href="#00:01:032.58" id="92.6" class="lt" onclick="jumptoTime(92, this.id)"> within</a><!--
+				--><a href="#00:01:032.88" id="92.9" class="lt" onclick="jumptoTime(92, this.id)"> 24</a><!--
+				--><a href="#00:01:033.30" id="93.3" class="lt" onclick="jumptoTime(93, this.id)"> hours.</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: #e1ffc7">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkgreen;font-weight: bold;">Customer</span><br>
+				<a href="#00:01:034.34" id="94.3" class="lt" onclick="jumptoTime(94, this.id)"> I'll</a><!--
+				--><a href="#00:01:034.56" id="94.6" class="lt" onclick="jumptoTime(94, this.id)"> soon</a><!--
+				--><a href="#00:01:034.72" id="94.7" class="lt" onclick="jumptoTime(94, this.id)"> be</a><!--
+				--><a href="#00:01:034.86" id="94.9" class="lt" onclick="jumptoTime(94, this.id)"> delivering</a><!--
+				--><a href="#00:01:035.30" id="95.3" class="lt" onclick="jumptoTime(95, this.id)"> my</a><!--
+				--><a href="#00:01:035.54" id="95.5" class="lt" onclick="jumptoTime(95, this.id)"> roses</a><!--
+				--><a href="#00:01:035.86" id="95.9" class="lt" onclick="jumptoTime(95, this.id)"> again.</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: white">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkorange;font-weight: bold;">Call Center</span><br>
+				<a href="#00:01:036.86" id="96.9" class="lt" onclick="jumptoTime(96, this.id)"> Within</a><!--
+				--><a href="#00:01:037.16" id="97.2" class="lt" onclick="jumptoTime(97, this.id)"> 24</a><!--
+				--><a href="#00:01:037.64" id="97.6" class="lt" onclick="jumptoTime(97, this.id)"> hours.</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: #e1ffc7">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkgreen;font-weight: bold;">Customer</span><br>
+				<a href="#00:01:038.80" id="98.8" class="lt" onclick="jumptoTime(98, this.id)"> Okay,</a><!--
+				--><a href="#00:01:039.16" id="99.2" class="lt" onclick="jumptoTime(99, this.id)"> no</a><!--
+				--><a href="#00:01:039.30" id="99.3" class="lt" onclick="jumptoTime(99, this.id)"> problem.</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: white">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkorange;font-weight: bold;">Call Center</span><br>
+				<a href="#00:01:040.16" id="100.2" class="lt" onclick="jumptoTime(100, this.id)"> Is</a><!--
+				--><a href="#00:01:040.40" id="100.4" class="lt" onclick="jumptoTime(100, this.id)"> there</a><!--
+				--><a href="#00:01:040.50" id="100.5" class="lt" onclick="jumptoTime(100, this.id)"> anything</a><!--
+				--><a href="#00:01:040.76" id="100.8" class="lt" onclick="jumptoTime(100, this.id)"> else</a><!--
+				--><a href="#00:01:041.04" id="101.0" class="lt" onclick="jumptoTime(101, this.id)"> I</a><!--
+				--><a href="#00:01:041.16" id="101.2" class="lt" onclick="jumptoTime(101, this.id)"> can</a><!--
+				--><a href="#00:01:041.28" id="101.3" class="lt" onclick="jumptoTime(101, this.id)"> help</a><!--
+				--><a href="#00:01:041.48" id="101.5" class="lt" onclick="jumptoTime(101, this.id)"> you</a><!--
+				--><a href="#00:01:041.60" id="101.6" class="lt" onclick="jumptoTime(101, this.id)"> with?</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: #e1ffc7">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkgreen;font-weight: bold;">Customer</span><br>
+				<a href="#00:01:042.46" id="102.5" class="lt" onclick="jumptoTime(102, this.id)"> That's</a><!--
+				--><a href="#00:01:042.98" id="103.0" class="lt" onclick="jumptoTime(102, this.id)"> all</a><!--
+				--><a href="#00:01:043.14" id="103.1" class="lt" onclick="jumptoTime(103, this.id)"> for</a><!--
+				--><a href="#00:01:043.26" id="103.3" class="lt" onclick="jumptoTime(103, this.id)"> now.</a><!--
+				--><a href="#00:01:043.70" id="103.7" class="lt" onclick="jumptoTime(103, this.id)"> Thanks.</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: white">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkorange;font-weight: bold;">Call Center</span><br>
+				<a href="#00:01:044.40" id="104.4" class="lt" onclick="jumptoTime(104, this.id)"> No</a><!--
+				--><a href="#00:01:044.58" id="104.6" class="lt" onclick="jumptoTime(104, this.id)"> problem,</a><!--
+				--><a href="#00:01:045.02" id="105.0" class="lt" onclick="jumptoTime(105, this.id)"> Randall.</a><!--
+				--><a href="#00:01:045.48" id="105.5" class="lt" onclick="jumptoTime(105, this.id)"> Thank</a><!--
+				--><a href="#00:01:045.60" id="105.6" class="lt" onclick="jumptoTime(105, this.id)"> you</a><!--
+				--><a href="#00:01:045.68" id="105.7" class="lt" onclick="jumptoTime(105, this.id)"> for</a><!--
+				--><a href="#00:01:045.84" id="105.8" class="lt" onclick="jumptoTime(105, this.id)"> calling</a><!--
+				--><a href="#00:01:046.08" id="106.1" class="lt" onclick="jumptoTime(106, this.id)"> Martha's</a><!--
+				--><a href="#00:01:046.64" id="106.6" class="lt" onclick="jumptoTime(106, this.id)"> Florist.</a><!--
+				--><a href="#00:01:047.04" id="107.0" class="lt" onclick="jumptoTime(107, this.id)"> Have</a><!--
+				--><a href="#00:01:047.14" id="107.1" class="lt" onclick="jumptoTime(107, this.id)"> a</a><!--
+				--><a href="#00:01:047.28" id="107.3" class="lt" onclick="jumptoTime(107, this.id)"> nice</a><!--
+				--><a href="#00:01:047.44" id="107.4" class="lt" onclick="jumptoTime(107, this.id)"> day.</a><!--
+				--></p>
+</div>
+<div class="e" style="background-color: #e1ffc7">
+<p  style="margin:0;padding: 5px 10px 10px 10px;word-wrap:normal;white-space:normal;">
+<span style="color:darkgreen;font-weight: bold;">Customer</span><br>
+				<a href="#00:01:052.82" id="112.8" class="lt" onclick="jumptoTime(112, this.id)"> Thank</a><!--
+				--><a href="#00:01:055.48" id="115.5" class="lt" onclick="jumptoTime(115, this.id)"> you.</a><!--
+				--></p>
+</div>
+	</body>
+</html>
