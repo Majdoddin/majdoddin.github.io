@@ -4,6 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@RMajdoddin">
+    <meta name="twitter:creator" content="@RMajdoddin">
+    <meta name="twitter:title" content="Installing Mojo🔥 on Debian">
+    <meta name="twitter:description" content="Debian 12 (Bookworm) comes with Python 3.11, but Mojo supports Python 3.8 - 3.10. So you need to install Python 3.10 fisrt and build everything with it.">
+    <meta name="twitter:image" content="file:///home/ruhollah/ai/majdoddin.github.io/mojo-debian-python.jpg">
+    
     <title>Installing Mojo🔥 on Debian</title>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -90,13 +98,24 @@
             top: 5em;         
             bottom: 5em;
         }
+        .image-container {
+            display: flex;
+            justify-content: center;  /* Centers content horizontally */
+            align-items: center;      /* Centers content vertically */
+            height: auto;            /* Takes the full viewport height */
+        }
 
-    
+        .image-container img {
+            display: block;           /* Removes the default bottom margin of images */
+        }    
     </style>
 
 </head>
 <body>
 <div id="content-wrapper" >
+    <div class="image-container">
+        <img src="mojo-debian-python.jpg" alt="mojo-debian-python" style="border-radius: 5em;"   width=200em hight=auto> 
+    </div>
 <h1 align="center">Installing Mojo🔥 on Debian</h1>    
 I finally got Modular and Mojo installed  on my Debian Linux 🥳🎉</br>
 I had to adapt the steps from <a href="https://developer.modular.com/download">Modular download</a> as follows, because Debian 12 (Bookworm) comes with Python 3.11, but Mojo supports Python 3.8 - 3.10.
