@@ -4,7 +4,7 @@ title:  "Dev Containers for setting up Cloud GPU"
 date:   2024-04-02 10:32:02 +0200
 categories: jekyll update
 ---
-![Dev Containers Logo](devc_logo.png)
+![Dev Containers Logo](/_posts/devc_logo.png)
 So you are developing a project that involves training a model. But each time you run it on a cloud GPU, you have to spend +30 min. to prepare the environment.
 I show you here how *Dev Containers* solves that problem. 
 
