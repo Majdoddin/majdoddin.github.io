@@ -34,6 +34,7 @@ plugins:
 
 exclude:
   - _posts/2024-04-02-welcome-to-jekyll.markdown
+  - about_template.markdown
 
 # Exclude from processing.
 # The following items will not be processed, by default.
