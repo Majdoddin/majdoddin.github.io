@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Dev Containers for setting up Cloud GPU"
-date:   2024-04-02 10:32:02 +0200
-categories: jekyll update
+title: Dev Containers for setting up Cloud GPU
+date: 2024-04-02 10:32:02 +0200
+categories: programming container
 ---
 ![Dev Containers Logo](/assets/images/devc_logo.png)
 

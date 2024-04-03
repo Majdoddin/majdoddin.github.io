@@ -1,0 +1,179 @@
+---
+layout: page
+title: "Installing Mojo on Debian"
+permalink: /installing_Mojo_on_Debian.html
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@RMajdoddin">
+    <meta name="twitter:creator" content="@RMajdoddin">
+    <meta name="twitter:title" content="Installing Mojo🔥 on Debian">
+    <meta name="twitter:description" content="Debian 12 (Bookworm) comes with Python 3.11, but Mojo supports Python 3.8 - 3.10. So you need to install Python 3.10 fisrt and build everything with it.">
+    <meta name="twitter:image" content="https://majdoddin.github.io/mojo-debian-python.jpg">
+    
+    <!-- <title>Installing Mojo🔥 on Debian</title> -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var codeBlocks = document.querySelectorAll('pre.bash-code');
+            codeBlocks.forEach(function(block) {
+                var btn = document.createElement('button');
+                btn.className = 'copy-btn';
+                btn.textContent = 'Copy';
+                btn.onclick = function() {
+                    var code = block.querySelector('code').innerText;
+                    var textarea = document.createElement('textarea');
+                    textarea.value = code;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    btn.textContent = 'Copied!';
+                    setTimeout(function() {
+                        btn.textContent = 'Copy';
+                    }, 2000);
+                };
+                block.appendChild(btn);
+            });
+        });
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0D1117;
+            color: #C9D1D9;
+            padding: 16px;
+        }
+        pre.bash-code {
+            max-width: 100%;
+            overflow-y: auto;
+            background-color: #161B22;
+            border: 1px solid #30363D;
+            padding: 16px;
+            overflow-x: scroll;
+            position: relative;
+            border-radius: 6px;
+            margin: 16px 0;
+            display: block;
+            width: fit-content;
+        }
+
+        a {
+            color: #58A6FF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background-color: #21262D;
+            border: none;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+            border-radius: 6px;
+            color: #C9D1D9;
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+        .copy-btn:hover {
+            opacity: 1;
+            background-color: #30363D;
+        }
+        #content-wrapper {
+            position: relative;
+            /* center the div */
+            right: 0;
+            left: 0;
+            margin-right: auto;
+            margin-left: auto;
+            margin-bottom: 500px;
+            /* give it dimensions */
+            min-height: 10em;
+            width: 70%;
+            /* just for example presentation */
+            top: 5em;         
+            bottom: 5em;
+        }
+        .image-container {
+            display: flex;
+            justify-content: center;  /* Centers content horizontally */
+            align-items: center;      /* Centers content vertically */
+            height: auto;            /* Takes the full viewport height */
+        }
+
+        .image-container img {
+            display: block;           /* Removes the default bottom margin of images */
+        }    
+    </style>
+
+</head>
+<body>
+<div id="content-wrapper" >
+    <div class="image-container">
+        <img src="/assets/images/mojo-debian-python.jpg" alt="mojo-debian-python" style="border-radius: 5em;"   width=200em hight=auto> 
+    </div>
+<h1 align="center">Installing Mojo🔥 on Debian</h1>    
+<h3 align="center"><a href="https://x.com/RMajdoddin/status/1710236316955295772?s=20">Ruhollah Majdoddin</a></h3>
+I finally got Modular and Mojo installed  on my Debian Linux 🥳🎉</br>
+I had to adapt the steps from <a href="https://developer.modular.com/download">Modular download</a> as follows, because Debian 12 (Bookworm) comes with Python 3.11, but Mojo supports Python 3.8 - 3.10.
+So you need to install Python 3.10 fisrt and build everything with it.<br>
+<br>
+First we get the source code (see <a href="https://www.python.org/downloads/">Pyhon's download page</a>):
+<pre class="bash-code"><code>wget https://www.python.org/ftp/python/3.10.13/Python-3.10.13.tar.xz &&
+tar -xf Python-3.10.13.tar.xz &&
+cd Python-3.10.13</code></pre>
+Next, we install the necessary Debian packages to build and install Python.
+<pre class="bash-code"><code>#Debian packages for build
+sudo apt-get update &&
+sudo apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev \
+libreadline-dev libsqlite3-dev libncurses5-dev libncursesw5-dev libffi-dev \
+libgdbm-dev liblzma-dev libexpat1-dev tk-dev uuid-dev libdb-dev wget curl</code></pre>
+Now, configuring Python's build (see <a href="https://docs.python.org/3/using/configure.html">Configure Options</a>), assuming you are installing it in <code style="background-color: #20262E; padding: 2px 4px; border-radius: 4px; color: #f5f5f5;">/usr/local/python3.10</code>:
+<pre class="bash-code"><code>./configure --enable-debug --enable-optimizations --enable-shared --prefix=/usr/local/python3.10 LDFLAGS=-Wl,--rpath=/usr/local/python3.10/lib</code></pre>
+
+ <code style="background-color: #20262E; padding: 2px 4px; border-radius: 4px; color: #f5f5f5;">--enable-shared</code> enables building a shared library for Python, <code style="background-color: #20262E; padding: 2px 4px; border-radius: 4px; color: #f5f5f5;">libpython</code>, that Modular needs to function.</br>
+
+The <a href="https://docs.python.org/3/using/configure.html#envvar-LDFLAGS"><code style="background-color: #20262E; padding: 2px 4px; border-radius: 4px; color: #f5f5f5;">LDFLAGS</code></a> environment variable is used to specify additional flags that should be passed to the linker <code style="background-color: #20262E; padding: 2px 4px; border-radius: 4px; color: #f5f5f5;">ld</code> when building a program or library.</br>
+<code style="background-color: #20262E; padding: 2px 4px; border-radius: 4px; color: #f5f5f5;">-Wl,</code> tells the compiler to pass the subsequent options directly to the linker (ld).</br>
+The <code style="background-color: #20262E; padding: 2px 4px; border-radius: 4px; color: #f5f5f5;">--rpath</code> option sets the runtime library search path for the resulting binary. This means that when the resulting Python binary is run, it will look for its shared libraries in <code style="background-color: #20262E; padding: 2px 4px; border-radius: 4px; color: #f5f5f5;">/usr/local/lib</code> before searching the usual system directories. This is particularly useful if you're installing Python in a non-standard location (like <code style="background-color: #20262E; padding: 2px 4px; border-radius: 4px; color: #f5f5f5;">/usr/local</code> in this case) and you want to ensure that the Python binary finds the correct shared libraries even if they aren't in the system's default library paths.<br><br>
+
+And build and install:
+<pre class="bash-code"><code>make -j$(nproc) &&
+sudo make install -j$(nproc)
+</code></pre>
+
+
+Next, we create a virtual environment with Python 3.10 and activate it so that all subsequent calls to python and its tools like 
+<code style="background-color: #20262E; padding: 2px 4px; border-radius: 4px; color: #f5f5f5;">pip</code> use Python 3.10:
+<pre class="bash-code"><code>/usr/local/python3.10/bin/python3 -m venv ~/.venv_modularD &&
+source . ~/.venv_modular/bin/activate
+</code></pre>
+
+Finally, we simply install Modular,
+<pre class="bash-code"><code>sudo apt-get install -y apt-transport-https &&
+  keyring_location=/usr/share/keyrings/modular-installer-archive-keyring.gpg &&
+  curl -1sLf 'https://dl.modular.com/bBNWiLZX5igwHXeu/installer/gpg.0E4925737A3895AD.key' |  gpg --dearmor >> ${keyring_location} &&
+  curl -1sLf 'https://dl.modular.com/bBNWiLZX5igwHXeu/installer/config.deb.txt?distro=debian&codename=wheezy' > /etc/apt/sources.list.d/modular-installer.list &&
+  apt-get update &&
+  apt-get install -y modular  </code></pre>
+
+and Mojo:
+<pre class="bash-code"><code>modular auth mut_f70552e5ba284d3d9e137525b487124e &&
+modular install mojo</code></pre>
+
+That is it. enjoy!
+
+You may also want to take a look at <a href="https://www.modular.com/blog/using-mojo-with-python">this post</a> on  Modular Blog about using Conda to use specific versions of Python with modular (not about installing Modular!)
+</div>    
+
+
+</body>
+</html>
