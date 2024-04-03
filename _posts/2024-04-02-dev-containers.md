@@ -8,7 +8,7 @@ categories: programming container
 
 So you are developing a project that involves training a model. But each time you run it on a cloud GPU, you have to spend +30 min. to prepare the environment.
 
-I show you here how *Dev Containers* solves that problem.
+I show you here how [*Dev Containers*](https://containers.dev/) solves that problem.
 
 __What will you get?__\
 Within 5 min. you get your VS Code connected to your updatable Linux dev environment, having full access to the GPU. 
