@@ -5,35 +5,40 @@ date:   2024-04-02 10:32:02 +0200
 categories: jekyll update
 ---
 ![Dev Containers Logo](/assets/images/devc_logo.png)
-So you are developing a project that involves training a model. But each time you run it on a cloud GPU, you have to spend +30 min. to prepare the environment.
-I show you here how *Dev Containers* solves that problem. 
 
-__What will you get?__
+So you are developing a project that involves training a model. But each time you run it on a cloud GPU, you have to spend +30 min. to prepare the environment.
+
+I show you here how *Dev Containers* solves that problem.
+
+__What will you get?__\
 Within 5 min. you get your VS Code connected to your updatable Linux dev environment, having full access to the GPU. 
 
-__How it works?__
+__How it works?__\
 Using Dev Containers, you build a docker image, tailored for your project. You load it on Docker Hub (just once).
+
 The image is downloaded and run on your cloud box, and you connect to it to do your work. The changes you make to your code are pushed to/pulled from your GitHub repos. 
 
-__Now a little about Dev Containers__
+__A little about Dev Containers__\
 It works through a VS Code extension. Withing your project folder, you specify what for a docker image is needed, and some other details. It builds the image (once) and runs it and connects to it as a remote. Usually you get your projects folder _mounted_ within the container, such that the changes are mirrored.
 
-__Let's Begin__
+__Let's Begin__\
 1- Make sure Docker is [installed](https://docs.docker.com/engine/install/) is installed. Install the VS Code [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension.
+
 2- Clone your GitHub project and open it with VS Code.
+
 3- Create a `devcontainer` folder, add the files `devcontainer.json` and `Dockerfile`. 
-4- `Dockerfile` can be any valid [Dockerfile](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/). Use it to setup your environment. Here I explain a typical usage. 
+
+4- `Dockerfile` can be any valid [Dockerfile](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/). Use it to setup your environment. Here I explain a typical usage.\
 Docker images is built in layers. You can choose an existing image to build on: 
 ```
 FROM python:3.10.14-bookworm
 ```
-This is Debian Bookworm with Python 3.10.14. 
-You can choose [Pytorch](https://hub.docker.com/r/pytorch/pytorch), but if you wanna specify the Python version, start from Python ([full list](https://hub.docker.com/_/python)). 
+This is Debian Bookworm with Python 3.10.14. You can choose [Pytorch](https://hub.docker.com/r/pytorch/pytorch), but if you wanna specify the Python version, start from Python ([full list](https://hub.docker.com/_/python)).
 
 ```
 WORKDIR /workspaces  
 ```
-It sets the `cwd` for the  following RUN commands. 
+It sets the `cwd` for the  following RUN commands.
 
 Now installing System dependencies: 
 ```
@@ -73,7 +78,7 @@ This specifies the Dockerfile used to build the image. `..` sets the build conte
 ```
 "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/assessor,type=bind,consistency=delegated",
 ```
-tells to mount your project folder to `/workspace/assessor` in the container. The changes will be mirrored. 
+mounts your project folder to `/workspace/assessor` in the container. The changes will be mirrored. 
 
 ```
 "workspaceFolder": "/workspaces/assessor",
@@ -88,11 +93,12 @@ tells which folder within the container should VS Code open.
 6- Choose `Dev Containers: Reopen in Container` from command palatte. This builds the image and runs it, as you specified. Choosing `Dev Container: Reopen Folder Locally` stops the container.
 
 7- To be able to use the image on Cloud instances with GPU, we should load the the image to Docker hub. 
+
 Create a (free) Docker hub account. Get an *Access Token* from Account Settings > Security, use it to login: 
 ```bash
 docker login
 ```
-get the image ID:
+Get the image ID:
 ```
 $ docker images 
 REPOSITORY TAG IMAGE ID CREATED SIZE 
@@ -103,6 +109,7 @@ Use it to tag the image:
 docker tag 813dc339be johndoe/dev-container:v1
 ```
 replacing `johndoe` with you Docker Hub username, and `dev-container` and `v1` with a repo name and tag you like.
+
 Now we can push it to Docker Hub:
 ```
 docker push johndoe/dev-container:v1
@@ -119,7 +126,7 @@ Check it on Docker Hub.
 ```
 Reopen the project in container, your environment is ready! Do your development and commit/push the changes you made to the git repos. That's it!
 
-**WAIT. What about GPU?**
+**WAIT. What about GPU?**\
 Oh, Sure :) [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) should be installed on your cloud instance (it usually is). Then just add this to `devcontainers.json`:
 ```
 "runArgs": [
