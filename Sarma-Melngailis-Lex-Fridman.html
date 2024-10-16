@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+	<title> Who is to blame | Sarma Melngailis and Lex Fridman </title>
+	<style>
+    * {
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+    }
+	
+body {
+	font-family: 'Inter', sans-serif;	
+    font-size: 21px;
+    color: #ffffff;
+    background-color: #463f3f;
+    display: flex;
+	flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	overflow: hidden;
+	padding: none;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%; /* Adjust width as necessary */
+	padding-top: 10px;	
+	
+	border-radius: 10px; 
+}
+
+#player-div {
+    position: relative;
+    width: 100%;
+    max-width: 100%; /* Optional max-width for the video */
+    margin-bottom: 0px;
+	border-radius: 10px; 
+}
+
+#player {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    height: auto;
+	border-radius: 15px; 
+}
+
+.transcript-container {
+    width: 100%;
+	border-radius: 10px; 
+    overflow-y: auto; /* This makes the container scrollable */
+    max-height: 500px; /* Adjust this value based on your layout needs */
+    scroll-behavior: smooth; /* For smoother scrolling effect */
+	padding: 0 0 200vh 0;
+	position:relative;
+}
+
+.dummy-spacer {
+  height: 11000px; /* Same as the container's height */
+}
+.e {
+    width: 100%;
+    box-sizing: border-box;
+	border-radius: 10px; 
+    padding: 10px;
+    font-size: 21px;
+	color: black;
+    margin-bottom: 0;
+    max-height: 300px; /* Adjust this value to fit your needs */
+}
+.e p {
+	margin:0;
+	padding: 5px 10px 10px 10px;
+	word-wrap:normal;
+	white-space:normal;
+}
+
+.e span {
+	color:darkorange;font-weight: bold;
+}
+
+.e p a {
+	color: inherit;
+	text-decoration: inherit;
+}
+.e1 {
+	background-color: white;
+}
+
+.e2 {
+	background-color: #e1ffc7;
+}
+
+		table {
+			border-spacing: 10px;
+		}
+
+		th {
+			text-align: left;
+		}
+
+
+
+		.l {
+			color: #050;
+		}
+
+		.s {
+			display: inline-block;
+		}
+
+		.c {
+			display: inline-block;
+		}
+
+		.t {
+			display: inline-block;
+		}
+
+
+		a {
+			display: inline;
+		}
+
+		.switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .label-text {
+            margin-right: 10px;
+			font-size: 24px;
+            vertical-align: middle;
+        }
+
+		label {
+            display: block;
+            margin-bottom: 10px; /* Adds bottom margin to the whole label */
+        }
+	</style>
+<script src="/jquery.min.js?1699116305" ></script>
+
+<script>
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+	
+
+    var elementsToBold = [];  // Initialize the array to hold the elements
+
+    window.onload = function() {
+        elementsToBold = document.querySelectorAll('[data-timestamp]');
+        console.log("Number of elements with 'data-timestamp':", elementsToBold.length);
+    };
+
+    var player, lastword = null, lastTimeUpdate = "0";
+
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+			// developers.google.com/youtube/player_parameters
+            videoId: 'Uhi2kTVnQS0',
+			playerVars: {
+            // 'start': 13*60+33,  // Start time in seconds (e.g., 60 seconds = 1 minute)
+            // 'end': 17*60+52,    // End time in seconds (e.g., 90 seconds = 1 minute 30 seconds)            
+            'controls': 1,  // Show player controls
+            'rel': 0,       // Disable related videos at the end
+			'playsinline': 1,
+			loop: 0, 
+			iv_load_policy: 0, 
+			hl: 'en', 
+			fs: 0, 
+			enablejsapi: 1, 
+			disablekb: 0, 
+			controls: 1, 
+			autoplay: 0
+          },
+        });
+
+        var iframeWindow = player.getIframe().contentWindow;
+
+        window.addEventListener("message", function (event) {
+            if (event.source === iframeWindow) {
+                var data = JSON.parse(event.data);
+                if (data.event === "infoDelivery" && data.info && data.info.currentTime) {
+                    var currentTime = (Math.round(data.info.currentTime * 5) / 5).toFixed(1);
+                    console.log(lastTimeUpdate, currentTime, currentTime > lastTimeUpdate + 0.05);
+					if (parseFloat(currentTime) < (parseFloat(lastTimeUpdate) - 0.05)) {   
+						lastTimeUpdate = currentTime    
+					} 
+					// else if (parseFloat(currentTime) > (parseFloat(lastTimeUpdate) + 1)) {
+					// 	console.log('there')
+					// 	lastTimeUpdate = currentTime
+					// }              
+						console.log('here')         
+                        // Reset all previously bolded elements
+						var elements = Array.from(elementsToBold).filter(el => {
+							var timestamp = parseFloat(el.getAttribute('data-timestamp'));
+							return timestamp > parseFloat(lastTimeUpdate) && timestamp <= parseFloat(currentTime);
+						});
+						if (elements.length === 0) {
+							return
+						}					
+						
+						let toggle = document.getElementById("autoscroll");
+                            if (toggle.checked) {
+								let transcript_container = document.getElementById('transcript-container');
+                                let position = elements.at(0).offsetTop - 5;
+                                transcript_container.scrollTo({
+                                    top: position,
+                                    behavior: 'smooth'
+                                });
+                            }
+
+						if (lastword) {
+							lastword.forEach(el => el.style.fontWeight = 'normal');
+						}
+						// Make these elements bold
+						elements.forEach(el => el.style.fontWeight = 'bold');
+
+
+
+						lastword = elements//.length > 1 ? elements : elements[0];
+						lastTimeUpdate = currentTime;
+                    //}
+                }
+            } 
+        });
+    }
+
+    function jumptoTime(timepoint, id) {
+        event.preventDefault();
+        //history.pushState(null, null, "#" + id);
+		lastTimeUpdate = timepoint.toFixed(1)
+		console.log('lastTimeUpdate', lastTimeUpdate)
+        player.seekTo(timepoint);
+        player.playVideo();
+    }
+</script>
+
+</head>
+
+<body>
+
+<div id="header" style="width: 100%"></div>
+
+<script>
+$("#header").load("header.html");
+</script>
+
+
+<div class="container">
+	<div id="player-div">
+		<label>
+			<span class="label-text">Auto-Scroll:</span>
+			<div class="switch">
+				<input type="checkbox" id="autoscroll" checked>
+				<span class="slider"></span>
+			</div>
+		</label>
+	<div id="player"></div>
+</div>
+
+	<div id="transcript-container" class="transcript-container">
+
+		<div class="e e1">
+			<p>
+				<span> Lex Fridman</span><br>
+				(00:00:03)
+				<a href="#00:00:002.96" id="w0" data-timestamp="3.0" onclick="jumptoTime(2, this.id)">Do</a>
+				<a href="#00:00:003.06" id="w1" data-timestamp="3.1" onclick="jumptoTime(3, this.id)">you</a>
+				<a href="#00:00:003.22" id="w2" data-timestamp="3.2" onclick="jumptoTime(3, this.id)">deserve</a>
+				<a href="#00:00:003.76" id="w3" data-timestamp="3.8" onclick="jumptoTime(3, this.id)">most</a>
+				<a href="#00:00:004.52" id="w4" data-timestamp="4.5" onclick="jumptoTime(4, this.id)">or</a>
+				<a href="#00:00:004.80" id="w5" data-timestamp="4.8" onclick="jumptoTime(4, this.id)">all</a>
+				<a href="#00:00:005.00" id="w6" data-timestamp="5.0" onclick="jumptoTime(5, this.id)">of</a>
+				<a href="#00:00:005.12" id="w7" data-timestamp="5.1" onclick="jumptoTime(5, this.id)">the</a>
+				<a href="#00:00:005.26" id="w8" data-timestamp="5.3" onclick="jumptoTime(5, this.id)">blame</a>
+				<a href="#00:00:006.33" id="w9" data-timestamp="6.3" onclick="jumptoTime(6, this.id)">for</a>
+				<a href="#00:00:006.53" id="w10" data-timestamp="6.5" onclick="jumptoTime(6, this.id)">the</a>
+				<a href="#00:00:006.69" id="w11" data-timestamp="6.7" onclick="jumptoTime(6, this.id)">failure</a>
+				<a href="#00:00:007.15" id="w12" data-timestamp="7.1" onclick="jumptoTime(7, this.id)">of</a>
+				<a href="#00:00:007.29" id="w13" data-timestamp="7.3" onclick="jumptoTime(7, this.id)">the</a>
+				<a href="#00:00:007.41" id="w14" data-timestamp="7.4" onclick="jumptoTime(7, this.id)">business</a>
+				<a href="#00:00:009.05" id="w15" data-timestamp="9.0" onclick="jumptoTime(9, this.id)">or</a>
+				<a href="#00:00:009.41" id="w16" data-timestamp="9.4" onclick="jumptoTime(9, this.id)">are</a>
+				<a href="#00:00:009.81" id="w17" data-timestamp="9.8" onclick="jumptoTime(9, this.id)">others</a>
+				<a href="#00:00:010.17" id="w18" data-timestamp="10.2" onclick="jumptoTime(10, this.id)">at</a>
+				<a href="#00:00:010.29" id="w19" data-timestamp="10.3" onclick="jumptoTime(10, this.id)">fault</a>
+				<a href="#00:00:010.89" id="w20" data-timestamp="10.9" onclick="jumptoTime(10, this.id)">too?</a>
+			</p>
+		</div>
+		<div class="e e2">
+			<p>
+				<span> Sarma Melngailis</span><br>
+				(00:00:12)
+				<a href="#00:00:012.01" id="w21" data-timestamp="12.0" onclick="jumptoTime(12, this.id)">Well</a>
+				<a href="#00:00:012.17" id="w22" data-timestamp="12.2" onclick="jumptoTime(12, this.id)">the</a>
+				<a href="#00:00:012.25" id="w23" data-timestamp="12.2" onclick="jumptoTime(12, this.id)">business</a>
+				<a href="#00:00:012.53" id="w24" data-timestamp="12.5" onclick="jumptoTime(12, this.id)">didn't</a>
+				<a href="#00:00:012.85" id="w25" data-timestamp="12.8" onclick="jumptoTime(12, this.id)">fail,</a>
+				<a href="#00:00:013.37" id="w26" data-timestamp="13.4" onclick="jumptoTime(13, this.id)">it</a>
+				<a href="#00:00:013.45" id="w27" data-timestamp="13.5" onclick="jumptoTime(13, this.id)">was</a>
+				<a href="#00:00:014.01" id="w28" data-timestamp="14.0" onclick="jumptoTime(14, this.id)">doing</a>
+				<a href="#00:00:014.35" id="w29" data-timestamp="14.4" onclick="jumptoTime(14, this.id)">well</a>
+				<a href="#00:00:015.69" id="w30" data-timestamp="15.7" onclick="jumptoTime(15, this.id)">and</a>
+				<a href="#00:00:015.89" id="w31" data-timestamp="15.9" onclick="jumptoTime(15, this.id)">so</a>
+				<a href="#00:00:016.99" id="w32" data-timestamp="17.0" onclick="jumptoTime(16, this.id)">it's</a>
+				<a href="#00:00:017.25" id="w33" data-timestamp="17.3" onclick="jumptoTime(17, this.id)">closing</a>
+				<a href="#00:00:019.07" id="w34" data-timestamp="19.1" onclick="jumptoTime(19, this.id)">is</a>
+				<a href="#00:00:019.21" id="w35" data-timestamp="19.2" onclick="jumptoTime(19, this.id)">like</a>
+				<a href="#00:00:019.75" id="w36" data-timestamp="19.8" onclick="jumptoTime(19, this.id)">it</a>
+				<a href="#00:00:019.86" id="w37" data-timestamp="19.9" onclick="jumptoTime(19, this.id)">was</a>
+				<a href="#00:00:020.36" id="w38" data-timestamp="20.4" onclick="jumptoTime(20, this.id)">destroyed.</a>
+			</p>
+		</div>
+		<div class="e e1">
+			<p>
+				<span> Lex Fridman</span><br>
+				(00:00:22)
+				<a href="#00:00:022.00" id="w39" data-timestamp="22.0" onclick="jumptoTime(21, this.id)">Who</a>
+				<a href="#00:00:022.20" id="w40" data-timestamp="22.2" onclick="jumptoTime(22, this.id)">deserves</a>
+				<a href="#00:00:022.62" id="w41" data-timestamp="22.6" onclick="jumptoTime(22, this.id)">the</a>
+				<a href="#00:00:022.74" id="w42" data-timestamp="22.7" onclick="jumptoTime(22, this.id)">blame</a>
+				<a href="#00:00:022.96" id="w43" data-timestamp="23.0" onclick="jumptoTime(22, this.id)">for</a>
+				<a href="#00:00:023.04" id="w44" data-timestamp="23.0" onclick="jumptoTime(23, this.id)">that?</a>
+				<a href="#00:00:023.66" id="w45" data-timestamp="23.7" onclick="jumptoTime(23, this.id)">I'm</a>
+				<a href="#00:00:023.84" id="w46" data-timestamp="23.8" onclick="jumptoTime(23, this.id)">asking</a>
+				<a href="#00:00:024.30" id="w47" data-timestamp="24.3" onclick="jumptoTime(24, this.id)">from</a>
+				<a href="#00:00:024.48" id="w48" data-timestamp="24.5" onclick="jumptoTime(24, this.id)">your</a>
+				<a href="#00:00:024.68" id="w49" data-timestamp="24.7" onclick="jumptoTime(24, this.id)">perspective</a>
+				<a href="#00:00:025.30" id="w50" data-timestamp="25.3" onclick="jumptoTime(25, this.id)">when</a>
+				<a href="#00:00:025.44" id="w51" data-timestamp="25.4" onclick="jumptoTime(25, this.id)">you</a>
+				<a href="#00:00:025.64" id="w52" data-timestamp="25.6" onclick="jumptoTime(25, this.id)">think</a>
+				<a href="#00:00:025.90" id="w53" data-timestamp="25.9" onclick="jumptoTime(25, this.id)">about</a>
+				<a href="#00:00:026.24" id="w54" data-timestamp="26.2" onclick="jumptoTime(26, this.id)">it,</a>
+				<a href="#00:00:027.20" id="w55" data-timestamp="27.2" onclick="jumptoTime(27, this.id)">in</a>
+				<a href="#00:00:027.30" id="w56" data-timestamp="27.3" onclick="jumptoTime(27, this.id)">the</a>
+				<a href="#00:00:027.42" id="w57" data-timestamp="27.4" onclick="jumptoTime(27, this.id)">privacy</a>
+				<a href="#00:00:027.98" id="w58" data-timestamp="28.0" onclick="jumptoTime(27, this.id)">of</a>
+				<a href="#00:00:028.12" id="w59" data-timestamp="28.1" onclick="jumptoTime(28, this.id)">your</a>
+				<a href="#00:00:028.40" id="w60" data-timestamp="28.4" onclick="jumptoTime(28, this.id)">mind,</a>
+				<a href="#00:00:030.32" id="w61" data-timestamp="30.3" onclick="jumptoTime(30, this.id)">Are</a>
+				<a href="#00:00:030.46" id="w62" data-timestamp="30.5" onclick="jumptoTime(30, this.id)">you</a>
+				<a href="#00:00:030.80" id="w63" data-timestamp="30.8" onclick="jumptoTime(30, this.id)">angry</a>
+				<a href="#00:00:031.86" id="w64" data-timestamp="31.9" onclick="jumptoTime(31, this.id)">at</a>
+				<a href="#00:00:032.10" id="w65" data-timestamp="32.1" onclick="jumptoTime(32, this.id)">Anthony</a>
+				<a href="#00:00:032.56" id="w66" data-timestamp="32.6" onclick="jumptoTime(32, this.id)">or</a>
+				<a href="#00:00:032.72" id="w67" data-timestamp="32.7" onclick="jumptoTime(32, this.id)">are</a>
+				<a href="#00:00:032.84" id="w68" data-timestamp="32.8" onclick="jumptoTime(32, this.id)">you</a>
+				<a href="#00:00:033.09" id="w69" data-timestamp="33.1" onclick="jumptoTime(33, this.id)">angry</a>
+				<a href="#00:00:033.37" id="w70" data-timestamp="33.4" onclick="jumptoTime(33, this.id)">at</a>
+				<a href="#00:00:033.42" id="w71" data-timestamp="33.4" onclick="jumptoTime(33, this.id)">yourself?</a>
+			</p>
+		</div>
+		<div class="e e2">
+			<p>
+				<span> Sarma Melngailis</span><br>
+				(00:00:40)
+				<a href="#00:00:039.78" id="w72" data-timestamp="39.8" onclick="jumptoTime(39, this.id)">In</a>
+				<a href="#00:00:039.88" id="w73" data-timestamp="39.9" onclick="jumptoTime(39, this.id)">the</a>
+				<a href="#00:00:039.98" id="w74" data-timestamp="40.0" onclick="jumptoTime(39, this.id)">privacy</a>
+				<a href="#00:00:040.42" id="w75" data-timestamp="40.4" onclick="jumptoTime(40, this.id)">of</a>
+				<a href="#00:00:040.54" id="w76" data-timestamp="40.5" onclick="jumptoTime(40, this.id)">my</a>
+				<a href="#00:00:040.70" id="w77" data-timestamp="40.7" onclick="jumptoTime(40, this.id)">own</a>
+				<a href="#00:00:040.84" id="w78" data-timestamp="40.8" onclick="jumptoTime(40, this.id)">mind</a>
+				<a href="#00:00:041.30" id="w79" data-timestamp="41.3" onclick="jumptoTime(41, this.id)">and</a>
+				<a href="#00:00:042.27" id="w80" data-timestamp="42.3" onclick="jumptoTime(42, this.id)">to</a>
+				<a href="#00:00:042.51" id="w81" data-timestamp="42.5" onclick="jumptoTime(42, this.id)">everybody</a>
+				<a href="#00:00:042.91" id="w82" data-timestamp="42.9" onclick="jumptoTime(42, this.id)">listening,</a>
+				<a href="#00:00:047.01" id="w83" data-timestamp="47.0" onclick="jumptoTime(47, this.id)">I</a>
+				<a href="#00:00:047.13" id="w84" data-timestamp="47.1" onclick="jumptoTime(47, this.id)">feel</a>
+				<a href="#00:00:047.41" id="w85" data-timestamp="47.4" onclick="jumptoTime(47, this.id)">responsible.</a>
+				<a href="#00:00:048.13" id="w86" data-timestamp="48.1" onclick="jumptoTime(48, this.id)">I</a>
+				<a href="#00:00:049.01" id="w87" data-timestamp="49.0" onclick="jumptoTime(49, this.id)">feel</a>
+				<a href="#00:00:049.29" id="w88" data-timestamp="49.3" onclick="jumptoTime(49, this.id)">responsible</a>
+				<a href="#00:00:050.03" id="w89" data-timestamp="50.0" onclick="jumptoTime(50, this.id)">in</a>
+				<a href="#00:00:050.11" id="w90" data-timestamp="50.1" onclick="jumptoTime(50, this.id)">the</a>
+				<a href="#00:00:050.25" id="w91" data-timestamp="50.3" onclick="jumptoTime(50, this.id)">same</a>
+				<a href="#00:00:050.53" id="w92" data-timestamp="50.5" onclick="jumptoTime(50, this.id)">way</a>
+				<a href="#00:00:050.79" id="w93" data-timestamp="50.8" onclick="jumptoTime(50, this.id)">that</a>
+				<a href="#00:00:051.41" id="w94" data-timestamp="51.4" onclick="jumptoTime(51, this.id)">if</a>
+				<a href="#00:00:053.29" id="w95" data-timestamp="53.3" onclick="jumptoTime(53, this.id)">you</a>
+				<a href="#00:00:053.39" id="w96" data-timestamp="53.4" onclick="jumptoTime(53, this.id)">were</a>
+				<a href="#00:00:053.55" id="w97" data-timestamp="53.6" onclick="jumptoTime(53, this.id)">driving</a>
+				<a href="#00:00:054.01" id="w98" data-timestamp="54.0" onclick="jumptoTime(54, this.id)">and</a>
+				<a href="#00:00:054.09" id="w99" data-timestamp="54.1" onclick="jumptoTime(54, this.id)">you</a>
+				<a href="#00:00:054.22" id="w100" data-timestamp="54.2" onclick="jumptoTime(54, this.id)">did</a>
+				<a href="#00:00:054.35" id="w101" data-timestamp="54.4" onclick="jumptoTime(54, this.id)">something</a>
+				<a href="#00:00:054.76" id="w102" data-timestamp="54.8" onclick="jumptoTime(54, this.id)">stupid</a>
+				<a href="#00:00:055.23" id="w103" data-timestamp="55.2" onclick="jumptoTime(55, this.id)">and</a>
+				<a href="#00:00:055.38" id="w104" data-timestamp="55.4" onclick="jumptoTime(55, this.id)">caused</a>
+				<a href="#00:00:055.84" id="w105" data-timestamp="55.8" onclick="jumptoTime(55, this.id)">an</a>
+				<a href="#00:00:056.00" id="w106" data-timestamp="56.0" onclick="jumptoTime(55, this.id)">accident</a>
+				<a href="#00:00:056.52" id="w107" data-timestamp="56.5" onclick="jumptoTime(56, this.id)">in</a>
+				<a href="#00:00:056.62" id="w108" data-timestamp="56.6" onclick="jumptoTime(56, this.id)">which</a>
+				<a href="#00:00:056.84" id="w109" data-timestamp="56.8" onclick="jumptoTime(56, this.id)">other</a>
+				<a href="#00:00:057.04" id="w110" data-timestamp="57.0" onclick="jumptoTime(57, this.id)">people</a>
+				<a href="#00:00:057.34" id="w111" data-timestamp="57.3" onclick="jumptoTime(57, this.id)">died,</a>
+				<a href="#00:00:058.74" id="w112" data-timestamp="58.7" onclick="jumptoTime(58, this.id)">You</a>
+				<a href="#00:00:058.88" id="w113" data-timestamp="58.9" onclick="jumptoTime(58, this.id)">would</a>
+				<a href="#00:00:059.08" id="w114" data-timestamp="59.1" onclick="jumptoTime(59, this.id)">feel</a>
+				<a href="#00:00:059.38" id="w115" data-timestamp="59.4" onclick="jumptoTime(59, this.id)">I</a>
+				<a href="#00:00:059.66" id="w116" data-timestamp="59.7" onclick="jumptoTime(59, this.id)">think</a>
+				<a href="#00:00:059.90" id="w117" data-timestamp="59.9" onclick="jumptoTime(59, this.id)">horrifically</a>
+				<a href="#00:01:000.72" id="w118" data-timestamp="60.7" onclick="jumptoTime(60, this.id)">responsible</a>
+				<a href="#00:01:002.15" id="w119" data-timestamp="62.1" onclick="jumptoTime(62, this.id)">and</a>
+				<a href="#00:01:002.27" id="w120" data-timestamp="62.3" onclick="jumptoTime(62, this.id)">you'd</a>
+				<a href="#00:01:002.42" id="w121" data-timestamp="62.4" onclick="jumptoTime(62, this.id)">blame</a>
+				<a href="#00:01:002.71" id="w122" data-timestamp="62.7" onclick="jumptoTime(62, this.id)">yourself</a>
+				<a href="#00:01:003.07" id="w123" data-timestamp="63.1" onclick="jumptoTime(63, this.id)">because</a>
+				<a href="#00:01:003.29" id="w124" data-timestamp="63.3" onclick="jumptoTime(63, this.id)">maybe</a>
+				<a href="#00:01:003.61" id="w125" data-timestamp="63.6" onclick="jumptoTime(63, this.id)">you</a>
+				<a href="#00:01:004.23" id="w126" data-timestamp="64.2" onclick="jumptoTime(64, this.id)">looked</a>
+				<a href="#00:01:004.51" id="w127" data-timestamp="64.5" onclick="jumptoTime(64, this.id)">away</a>
+				<a href="#00:01:005.03" id="w128" data-timestamp="65.0" onclick="jumptoTime(65, this.id)">or</a>
+				<a href="#00:01:005.65" id="w129" data-timestamp="65.6" onclick="jumptoTime(65, this.id)">checked</a>
+				<a href="#00:01:005.89" id="w130" data-timestamp="65.9" onclick="jumptoTime(65, this.id)">your</a>
+				<a href="#00:01:006.07" id="w131" data-timestamp="66.1" onclick="jumptoTime(66, this.id)">phone</a>
+				<a href="#00:01:006.45" id="w132" data-timestamp="66.5" onclick="jumptoTime(66, this.id)">or</a>
+				<a href="#00:01:006.55" id="w133" data-timestamp="66.5" onclick="jumptoTime(66, this.id)">something.</a>
+				<a href="#00:01:009.91" id="w134" data-timestamp="69.9" onclick="jumptoTime(69, this.id)">But</a>
+				<a href="#00:01:010.25" id="w135" data-timestamp="70.3" onclick="jumptoTime(70, this.id)">you</a>
+				<a href="#00:01:010.39" id="w136" data-timestamp="70.4" onclick="jumptoTime(70, this.id)">didn't</a>
+				<a href="#00:01:010.65" id="w137" data-timestamp="70.7" onclick="jumptoTime(70, this.id)">intend</a>
+				<a href="#00:01:011.09" id="w138" data-timestamp="71.1" onclick="jumptoTime(71, this.id)">to</a>
+				<a href="#00:01:011.19" id="w139" data-timestamp="71.2" onclick="jumptoTime(71, this.id)">kill</a>
+				<a href="#00:01:011.44" id="w140" data-timestamp="71.4" onclick="jumptoTime(71, this.id)">those</a>
+				<a href="#00:01:011.64" id="w141" data-timestamp="71.6" onclick="jumptoTime(71, this.id)">people</a>
+				<a href="#00:01:011.94" id="w142" data-timestamp="71.9" onclick="jumptoTime(71, this.id)">of</a>
+				<a href="#00:01:012.54" id="w143" data-timestamp="72.5" onclick="jumptoTime(72, this.id)">course.</a>
+				<a href="#00:01:013.80" id="w144" data-timestamp="73.8" onclick="jumptoTime(73, this.id)">So</a>
+				<a href="#00:01:014.00" id="w145" data-timestamp="74.0" onclick="jumptoTime(73, this.id)">for</a>
+				<a href="#00:01:014.16" id="w146" data-timestamp="74.2" onclick="jumptoTime(74, this.id)">me</a>
+				<a href="#00:01:014.44" id="w147" data-timestamp="74.4" onclick="jumptoTime(74, this.id)">it's</a>
+				<a href="#00:01:014.60" id="w148" data-timestamp="74.6" onclick="jumptoTime(74, this.id)">like</a>
+				<a href="#00:01:015.86" id="w149" data-timestamp="75.9" onclick="jumptoTime(75, this.id)">I</a>
+				<a href="#00:01:015.94" id="w150" data-timestamp="75.9" onclick="jumptoTime(75, this.id)">didn't</a>
+				<a href="#00:01:016.18" id="w151" data-timestamp="76.2" onclick="jumptoTime(76, this.id)">intend</a>
+				<a href="#00:01:016.68" id="w152" data-timestamp="76.7" onclick="jumptoTime(76, this.id)">to</a>
+				<a href="#00:01:016.80" id="w153" data-timestamp="76.8" onclick="jumptoTime(76, this.id)">kill</a>
+				<a href="#00:01:018.08" id="w154" data-timestamp="78.1" onclick="jumptoTime(78, this.id)">business.</a>
+				<a href="#00:01:018.80" id="w155" data-timestamp="78.8" onclick="jumptoTime(78, this.id)">You</a>
+				<a href="#00:01:018.90" id="w156" data-timestamp="78.9" onclick="jumptoTime(78, this.id)">know,</a>
+				<a href="#00:01:019.54" id="w157" data-timestamp="79.5" onclick="jumptoTime(79, this.id)">sometimes</a>
+				<a href="#00:01:019.94" id="w158" data-timestamp="79.9" onclick="jumptoTime(79, this.id)">I</a>
+				<a href="#00:01:020.06" id="w159" data-timestamp="80.1" onclick="jumptoTime(80, this.id)">say</a>
+				<a href="#00:01:020.42" id="w160" data-timestamp="80.4" onclick="jumptoTime(80, this.id)">like</a>
+				<a href="#00:01:020.60" id="w161" data-timestamp="80.6" onclick="jumptoTime(80, this.id)">my</a>
+				<a href="#00:01:020.74" id="w162" data-timestamp="80.7" onclick="jumptoTime(80, this.id)">own</a>
+				<a href="#00:01:020.92" id="w163" data-timestamp="80.9" onclick="jumptoTime(80, this.id)">child,</a>
+				<a href="#00:01:021.32" id="w164" data-timestamp="81.3" onclick="jumptoTime(81, this.id)">I</a>
+				<a href="#00:01:021.40" id="w165" data-timestamp="81.4" onclick="jumptoTime(81, this.id)">don't</a>
+				<a href="#00:01:021.54" id="w166" data-timestamp="81.5" onclick="jumptoTime(81, this.id)">know</a>
+				<a href="#00:01:021.64" id="w167" data-timestamp="81.6" onclick="jumptoTime(81, this.id)">if</a>
+				<a href="#00:01:021.72" id="w168" data-timestamp="81.7" onclick="jumptoTime(81, this.id)">that's</a>
+				<a href="#00:01:021.94" id="w169" data-timestamp="81.9" onclick="jumptoTime(81, this.id)">offensive</a>
+				<a href="#00:01:022.32" id="w170" data-timestamp="82.3" onclick="jumptoTime(82, this.id)">to</a>
+				<a href="#00:01:022.42" id="w171" data-timestamp="82.4" onclick="jumptoTime(82, this.id)">some</a>
+				<a href="#00:01:022.56" id="w172" data-timestamp="82.6" onclick="jumptoTime(82, this.id)">people,</a>
+				<a href="#00:01:022.86" id="w173" data-timestamp="82.9" onclick="jumptoTime(82, this.id)">but</a>
+				<a href="#00:01:023.30" id="w174" data-timestamp="83.3" onclick="jumptoTime(83, this.id)">it's</a>
+				<a href="#00:01:023.46" id="w175" data-timestamp="83.5" onclick="jumptoTime(83, this.id)">like</a>
+				<a href="#00:01:023.92" id="w176" data-timestamp="83.9" onclick="jumptoTime(83, this.id)">as</a>
+				<a href="#00:01:024.04" id="w177" data-timestamp="84.0" onclick="jumptoTime(84, this.id)">if</a>
+				<a href="#00:01:024.18" id="w178" data-timestamp="84.2" onclick="jumptoTime(84, this.id)">I</a>
+				<a href="#00:01:024.32" id="w179" data-timestamp="84.3" onclick="jumptoTime(84, this.id)">killed</a>
+				<a href="#00:01:024.60" id="w180" data-timestamp="84.6" onclick="jumptoTime(84, this.id)">my</a>
+				<a href="#00:01:024.78" id="w181" data-timestamp="84.8" onclick="jumptoTime(84, this.id)">own</a>
+				<a href="#00:01:025.64" id="w182" data-timestamp="85.6" onclick="jumptoTime(85, this.id)">child.</a>
+				<a href="#00:01:026.02" id="w183" data-timestamp="86.0" onclick="jumptoTime(86, this.id)">It</a>
+				<a href="#00:01:026.78" id="w184" data-timestamp="86.8" onclick="jumptoTime(86, this.id)">was</a>
+				<a href="#00:01:027.00" id="w185" data-timestamp="87.0" onclick="jumptoTime(87, this.id)">a</a>
+				<a href="#00:01:027.06" id="w186" data-timestamp="87.1" onclick="jumptoTime(87, this.id)">business,</a>
+				<a href="#00:01:027.44" id="w187" data-timestamp="87.4" onclick="jumptoTime(87, this.id)">but</a>
+				<a href="#00:01:027.56" id="w188" data-timestamp="87.6" onclick="jumptoTime(87, this.id)">it</a>
+				<a href="#00:01:027.66" id="w189" data-timestamp="87.7" onclick="jumptoTime(87, this.id)">was</a>
+				<a href="#00:01:028.03" id="w190" data-timestamp="88.0" onclick="jumptoTime(88, this.id)">special.</a>
+				<a href="#00:01:033.13" id="w191" data-timestamp="93.1" onclick="jumptoTime(93, this.id)">So</a>
+				<a href="#00:01:033.25" id="w192" data-timestamp="93.2" onclick="jumptoTime(93, this.id)">I</a>
+				<a href="#00:01:033.33" id="w193" data-timestamp="93.3" onclick="jumptoTime(93, this.id)">don't</a>
+				<a href="#00:01:033.79" id="w194" data-timestamp="93.8" onclick="jumptoTime(93, this.id)">feel</a>
+				<a href="#00:01:034.67" id="w195" data-timestamp="94.7" onclick="jumptoTime(94, this.id)">guilt,</a>
+				<a href="#00:01:034.97" id="w196" data-timestamp="95.0" onclick="jumptoTime(94, this.id)">I</a>
+				<a href="#00:01:035.05" id="w197" data-timestamp="95.0" onclick="jumptoTime(95, this.id)">feel</a>
+				<a href="#00:01:035.29" id="w198" data-timestamp="95.3" onclick="jumptoTime(95, this.id)">responsibility.</a>
+				<a href="#00:01:036.89" id="w199" data-timestamp="96.9" onclick="jumptoTime(96, this.id)">And</a>
+				<a href="#00:01:037.01" id="w200" data-timestamp="97.0" onclick="jumptoTime(97, this.id)">then,</a>
+				<a href="#00:01:039.97" id="w201" data-timestamp="100.0" onclick="jumptoTime(99, this.id)">you</a>
+				<a href="#00:01:040.09" id="w202" data-timestamp="100.1" onclick="jumptoTime(100, this.id)">know,</a>
+				<a href="#00:01:040.25" id="w203" data-timestamp="100.3" onclick="jumptoTime(100, this.id)">I'm</a>
+				<a href="#00:01:040.43" id="w204" data-timestamp="100.4" onclick="jumptoTime(100, this.id)">angry</a>
+				<a href="#00:01:041.35" id="w205" data-timestamp="101.4" onclick="jumptoTime(101, this.id)">at</a>
+				<a href="#00:01:041.47" id="w206" data-timestamp="101.5" onclick="jumptoTime(101, this.id)">him,</a>
+				<a href="#00:01:042.07" id="w207" data-timestamp="102.1" onclick="jumptoTime(102, this.id)">even</a>
+				<a href="#00:01:042.23" id="w208" data-timestamp="102.2" onclick="jumptoTime(102, this.id)">though</a>
+				<a href="#00:01:043.01" id="w209" data-timestamp="103.0" onclick="jumptoTime(103, this.id)">that</a>
+				<a href="#00:01:043.25" id="w210" data-timestamp="103.3" onclick="jumptoTime(103, this.id)">anger</a>
+				<a href="#00:01:043.57" id="w211" data-timestamp="103.6" onclick="jumptoTime(103, this.id)">is</a>
+				<a href="#00:01:044.23" id="w212" data-timestamp="104.2" onclick="jumptoTime(104, this.id)">pointless.</a>
+			</p>
+		</div>
+		
+
+		<div class="dummy-spacer"></div>
+</div>
+</div>
+	</body>
+</html>
+
